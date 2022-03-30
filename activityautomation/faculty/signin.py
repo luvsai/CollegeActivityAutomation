@@ -11,7 +11,20 @@ from .signutilities import *
 
 
 @csrf_exempt
-def login(request):
+def Cjlogin(request):
+    sessionid = request.session.get("sessionid","NOSessionID")
+    if sessionid == "NOSessionID" :#not logged in
+        temp = getsessionid()
+        request.session["sessionid"] = temp
+        sessionid = temp
+        
+    
+    return HttpResponse(sessionid)
+
+
+
+
+
     if request.method == "POST": #do login and show the output
         print(request.body.decode("utf-8"))
         cred = json.loads(request.body)
@@ -38,7 +51,7 @@ def login(request):
 
                     else:
                         #wrong credentials go to login page
-                        
+
                         tempd["status"] = "Incorrect"
                     templist.append(tempd)
                     data["loginproducts"] = templist
@@ -62,3 +75,27 @@ def login(request):
     #elsee show the login page
 
     
+@csrf_exempt
+def login(request):
+    sessionid = request.session.get("sessionid","NOSessionID")
+    if sessionid == "NOSessionID" :#not logged in
+        temp = getsessionid()
+        request.session["sessionid"] = temp
+        sessionid = temp
+        return HttpResponse("Not logged in ")
+        
+    
+    return HttpResponse(sessionid +" <br>logged IN yayy!!!")
+
+@csrf_exempt
+def logout(request):
+    sessionid = request.session.get("sessionid","NOSessionID")
+    if sessionid == "NOSessionID" :#not logged in
+        return HttpResponse("Not Logged in")
+    else :
+        del request.session['sessionid']
+        return HttpResponse("Succesfullly Logged out")
+
+        
+    
+    return HttpResponse(sessionid)
