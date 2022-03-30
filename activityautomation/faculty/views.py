@@ -418,6 +418,16 @@ def home(request):
 
 
 
+
+
+
+
+
+
+
+
+
+
 def products(request):
     objects = Products.objects.all()
     
@@ -443,3 +453,10 @@ def products(request):
     
     return HttpResponse("{ \"pid\" :1234 ,\"pname\" : \"Santoor Mommy\"}")
     pass
+
+
+
+
+
+
+

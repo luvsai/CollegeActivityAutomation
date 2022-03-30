@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 
+from . import signin
 from activityautomation import settings
 from django.conf.urls.static import static
 urlpatterns = [
@@ -17,9 +18,9 @@ urlpatterns = [
     
     path('menu', views.menu,name='menu'),
 
+     path('login', signin.menu,name='menu'),
     
-    
-    
+   
 ]
 
 

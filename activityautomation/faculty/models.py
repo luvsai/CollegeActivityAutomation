@@ -65,3 +65,14 @@ class Products(models.Model):
     pname = models.CharField(max_length = 250)
     class Meta:
         db_table = "Products"
+
+
+
+class activeFaculty(models.Model):
+    A_Id = models.IntegerField(primary_key=True)
+    F_Id = models.IntegerField()
+    sessionid = models.CharField(
+        default="sadbfahfdsfhhKJHeehhOHugu", max_length=200)
+
+    class Meta:
+        db_table = "activefaculty"
