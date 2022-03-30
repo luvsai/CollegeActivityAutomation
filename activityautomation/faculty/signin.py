@@ -84,7 +84,7 @@ def login(request):
         sessionid = temp
         return HttpResponse("Not logged in ")
         
-    
+       
     return HttpResponse(sessionid +" <br>logged IN yayy!!!")
 
 @csrf_exempt
