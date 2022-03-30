@@ -8,7 +8,7 @@ from django.http import HttpResponse, JsonResponse
 
 from django.views.decorators.http import require_http_methods
 from parso import parse  
-from faculty.models import dummy , publications , faculty
+from faculty.models import dummy , publications , faculty ,Products
 
 import datetime
 import random
@@ -20,7 +20,7 @@ import os
 from django.template import loader  
 
 from .forms import Profile_Form
-from .models import User_Profile
+from .models import  User_Profile
 
 
 
@@ -225,6 +225,7 @@ def hello(request) :
  
 
 def importpublicationData(request) :
+    
     #return HttpResponse("OK")
 
 
@@ -310,7 +311,7 @@ def viewFaculty(request) :
     
     #return JsonResponse(parsedata)
     
-     # getting our template  
+# # getting our template  
     return HttpResponse(template.render(parsedata))
 
 
@@ -415,3 +416,30 @@ def home(request):
 
     return HttpResponse(strres)
 
+
+
+def products(request):
+    objects = Products.objects.all()
+    
+
+
+
+
+    res ='Printing all Product entries in the DB : <br>'
+    
+     
+    parsedata = {}
+    product = []
+    for rec in objects:
+        product.append([rec.pid , rec.pname])
+    parsedata["products"] = product
+
+    
+    
+    return JsonResponse(parsedata)
+    template = loader.get_template('faculty.html')
+    
+    
+    
+    return HttpResponse("{ \"pid\" :1234 ,\"pname\" : \"Santoor Mommy\"}")
+    pass

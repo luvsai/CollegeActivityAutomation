@@ -21,14 +21,14 @@ class publications(models.Model):
     P_IF_State = models.CharField(default=False ,max_length=100)
     P_IF_Value  = models.CharField(default=False ,max_length=20)
     P_IF_Source = models.CharField(default=False ,max_length=20)
-    P_DOP = models.CharField(default=False ,max_length=20)#models.DateTimeField(default=False)
+    P_DOP = models.DateField(default=False ,max_length=20)#models.DateTimeField(default=False)
     P_DOI = models.CharField(default=False ,max_length=250)
     P_Page_Nos = models.CharField(default=False ,max_length=45)
     P_ISSN = models.CharField(default=False ,max_length=45)
     P_Volume = models.CharField(default=False ,max_length=20)
     P_Issue = models.CharField(default=False ,max_length=20)
     P_Journal_Source = models.CharField(default=False ,max_length=500)
-    P_Paper_Source = models.CharField(default=False ,max_length=500)
+    P_Paper_Source = models.FileField(default=False ,max_length=500)
 
 
     class Meta:
@@ -57,3 +57,11 @@ class User_Profile(models.Model):
     display_picture = models.FileField()
     def __str__(self):
         return self.fname
+
+
+
+class Products(models.Model):
+    pid = models.IntegerField(primary_key=True)
+    pname = models.CharField(max_length = 250)
+    class Meta:
+        db_table = "Products"
