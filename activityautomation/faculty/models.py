@@ -1,3 +1,4 @@
+from tkinter.tix import AUTO
 from django.db import models
 
 # Create your models here.
@@ -67,6 +68,15 @@ class Products(models.Model):
         db_table = "Products"
 
 
+
+
+# CREATE TABLE `actautomat`.`activefaculty`(
+# `A_Id` INT NOT NULL,
+
+# `F_Id` INT NOT NULL,FOREIGN KEY(`F_Id`) REFERENCES `faculty`(`F_Id`),
+# `sessionid` varchar(200) NOT NULL,
+# PRIMARY KEY (`A_Id`,`F_Id`,`sessionid`)
+# );
 
 class activeFaculty(models.Model):
     A_Id = models.IntegerField(primary_key=True)
