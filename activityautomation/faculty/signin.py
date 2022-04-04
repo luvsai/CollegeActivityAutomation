@@ -76,3 +76,6 @@ def logout(request):
 
 def home1(request):
     return render(request,'home.html')
+
+def welcome(request):
+    return render(request, 'welcome.html')

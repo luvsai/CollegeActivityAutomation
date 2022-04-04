@@ -1,27 +1,8 @@
-<!DOCTYPE html>
-{% load  static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Faculty Data</title>
-    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
-    <link rel="stylesheet" href="{% static 'css/home.css' %}">
-  </head>
-  <body>
-    <div class="bgimage">
-      <div class="navbar">
-        <img  class="logo" src="http://www.jeduka.com/storage/school_image/2/mvgr-college-of-engineering.png" alt="logo">
-          <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Contents</a></li>
-            <li><a href="#">About</a></li>
-          </ul>
-      </div>
+{% extends 'base.html' %}
+    {% block content %}
       <div class="wrapper">
         <div class="text-center mt-4 name"> Faculty Login </div>
-        <form class="p-3 mt-3" method="POST"  action="">
+        <form class="p-3 mt-3" method="POST"  action="welcome">
           {%csrf_token %} 
             <div class="form-field d-flex align-items-center"> <span class="far fa-user"></span> <input type="text" name="F_RegId" id="userName" placeholder="Username"> </div>
             <div class="form-field d-flex align-items-center"> <span class="fas fa-key"></span> <input type="password" name="F_Password" id="pwd" placeholder="Password"> </div> 
@@ -29,9 +10,9 @@
         </form>
         <div class="text-center fs-6"> <a href="#">Forget password?</a></div>
     </div>
-       
+    {% endblock %}   
            
-  </div>
+
   </body>
 </html>
 

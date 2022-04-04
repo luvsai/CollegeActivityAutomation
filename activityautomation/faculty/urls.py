@@ -22,6 +22,7 @@ urlpatterns = [
     path('logout', signin.logout,name='logout'),
     path('crlogin', signin.crlogin,name='loginform'),
     path('home1', signin.home1,name='homepage'),
+    path('welcome', signin.welcome,name='welcome'),
      
 
     
