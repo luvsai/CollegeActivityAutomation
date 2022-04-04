@@ -13,7 +13,7 @@ urlpatterns = [
     path('pdfgenerate', views.pdfgenerate ,name='pdfgenerate'),
     path('upload', views.create_profile,name='upload'),
     path('jso', views.jso,name='jso'),
-    path('products', views.products,name='jso'),
+    # path('products', views.products,name='jso'),
 
     
     path('menu', views.menu,name='menu'),
