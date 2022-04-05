@@ -1,16 +1,56 @@
 {% extends 'base.html' %}
   {% block content %}
-
-    <div class="container-fluid">
+  <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
 			<div class="row">
-				<div class="col-md-4 halfleft">
-          <!-- connections --><p style="float: left;">connection</p>
+				<div class="col-md-3 halfleft">
+					  <!-- connections -->
+					  <h6 class="text-center alert alert-info">CONNECTIONS/NETWORK</h6>
 				</div>
-				<div class="col-md-8 halfright">
-          <!-- dashboard --><p style="float: right;">dashboard</p>
+				<div class="col-md-5 halfcenter">
+					  <!-- dashboard -->
+					  <center>
+							<h6 class="text-center alert alert-info">DASHBOARD</h6><br>
+							<div class="user"></div>
+							<br>
+						<div class="details">
+							<h5>Faculty Id</h5><br>
+							<h5>Faculty Name</h5><br>
+							<h5>Faculty Designation</h5>
+						</div>
+					</center>
 				</div>
+				<div class="col-md-3 halfright">
+					<h6 class="text-center alert alert-info">LIST OF ACTIVITIES</h6>
+					<div class="form-outline">
+						<input type="search" id="form1" class="form-control" placeholder="Type query" aria-label="Search" />
+					</div>
+					<br>
+					<div class="tasks">
+						<a class="activity" href="#">Teaching-learning Tools</a>
+						<a class="activity" href="#">Awards</a>
+						<a class="activity" href="#">Publications</a>
+						<a class="activity" href="#">Fellowships</a>
+						<a class="activity"  href="#">Research Projects</a>
+						<a class="activity" href="#">IP Rights and Innovation</a>
+						<a class="activity" href="#">Books</a>
+						<a class="activity" href="#">Book Chapter</a>
+						<a class="activity" href="#">Int.Conf</a>
+						<a class="activity" href="#">Citation Counts</a>
+						<a class="activity" href="#">H-Index</a>
+						<a class="activity" href="#">Seminars/Conferences attented</a>
+						<a class="activity" href="#">Paper Presented in Conf</a>
+						<a class="activity" href="#">Resource Person</a>
+						<a class="activity" href="#">Consultancy</a>
+						<a class="activity" href="#">Paper Presented in Conf</a>
+						<a class="activity" href="#">Corporate Training</a>
+						<a class="activity" href="#">Internships</a>
+						<a class="activity" href="#">Awards for Innovation</a>
+						<a class="activity" href="#">MOU</a>
+					</div>
+					
+			  </div>
 			</div>
 		</div>
 	</div>

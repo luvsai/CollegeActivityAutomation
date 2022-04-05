@@ -13,7 +13,9 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js">
 	</script>
     <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
 	<style>
 		.navbar-nav {
 			margin-left: auto;
@@ -98,8 +100,83 @@
             color: black;
             text-decoration: none;
         }
-        .halfleft { width: 30%; }
-        .halfright { width: 70%; }
+        .halfleft{
+			
+			width: 350px;
+			height: 1500px;
+            margin-left: 20px;
+            margin-top: 30px;
+			padding: 40px 30px 30px 30px;
+			border-radius: 10px;
+			box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+            padding-right: 50px;
+
+
+		}
+		.halfcenter{
+			width: 350px;
+			height: 1500px;
+            margin-left: 20px;
+            margin-top: 30px;
+			padding: 40px 30px 30px 30px;
+			border-radius: 10px;
+			box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+            padding-right: 50px;
+
+		}
+		.halfright{
+			background-color:white;
+			width: 100px;
+			height: 1500px;
+			margin-left: 20px;
+            margin-top: 30px;
+			padding: 40px 30px 30px 30px;
+			border-radius: 10px;
+			box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+
+		}
+        .activity{
+			text-decoration: none;
+			display: flex;
+			
+			background-color: rgb(247, 242, 242);
+			margin-bottom: 20px;
+			padding-left: 20px;
+			padding-bottom: 10px;
+			padding-top: 10px;
+			border-radius: 1rem;
+			color: black;
+		}
+        .user{
+            height: 100px;
+            width:100px;
+            background-color: #D3D9D9;
+            border: 2PX SOLID #D3D9D9;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+        .user::before{
+            content: '';
+            width: 32px;
+            height: 32px;
+            background-color: white;
+            border-radius: 50%;
+            position: absolute;
+            left: calc(50% - 15px);
+            top: 24px;
+        }
+        .user::after{
+            content: '';
+            width: 65px;
+            height: 50px;
+            background-color: white;
+            border-radius: 50%;
+            position: absolute;
+            left: calc(50% - 32px);
+            top:63px;
+        }
 	</style>
 </head>
 
