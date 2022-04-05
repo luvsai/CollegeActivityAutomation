@@ -57,3 +57,12 @@ class User_Profile(models.Model):
     display_picture = models.FileField()
     def __str__(self):
         return self.fname
+
+class activeFaculty(models.Model):
+    A_Id = models.IntegerField(primary_key=True)
+    F_Id = models.IntegerField()
+    sessionid = models.CharField(
+        default="sadbfahfdsfhhKJHeehhOHugu", max_length=200)
+
+    class Meta:
+        db_table = "activefaculty"
