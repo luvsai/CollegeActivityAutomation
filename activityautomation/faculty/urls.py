@@ -14,7 +14,7 @@ urlpatterns = [
     path('upload', views.create_profile,name='upload'),
     path('jso', views.jso,name='jso'),
     # path('products', views.products,name='jso'),
-
+    
     
     path('menu', views.menu,name='menu'),
 
@@ -23,6 +23,7 @@ urlpatterns = [
     path('crlogin', signin.crlogin,name='loginform'),
     path('home1', signin.home1,name='homepage'),
     path('welcome', signin.welcome,name='welcome'),
+    path('faculty_publications', signin.faculty_publications,name='faculty_publications'),
      
 
     

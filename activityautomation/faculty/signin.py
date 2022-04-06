@@ -79,3 +79,6 @@ def home1(request):
 
 def welcome(request):
     return render(request, 'welcome.html')
+
+def faculty_publications(request):
+    return render(request, 'publications.html')
