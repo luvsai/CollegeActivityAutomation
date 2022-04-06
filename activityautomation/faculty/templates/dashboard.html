@@ -1,19 +1,130 @@
-{% extends 'base.html' %}
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js">
+	</script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js">
+	</script>
+    <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+	<script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
+	<style>
+		.halfleft{
+			
+			width: 350px;
+			height: 1500px;
+			margin-left: 30px;
+			padding: 40px 30px 30px 30px;
+			/* border-top: 3px solid black;
+			border-bottom: 3px solid black; */
+			/* background-color: #ecf0f3; */
+			border-radius: 10px;
+			/* box-shadow: 20px 25px 20px #cbced1, -10px -10px 15px #fff; */
+			box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+			
 
-    <!-- <div class="container-fluid">
-	<div class="row">
-		<div class="col-md-12">
-			<div class="row">
-				<div class="col-md-4 halfleft">
-           connections <p style="float: left;">connection</p>
-				</div>
-				<div class="col-md-8 halfright">
-           dashboard <p style="float: right;">dashboard</p>
+		}
+		.halfcenter{
+			width: 350px;
+			height: 1500px;
+		
+			padding: 40px 30px 30px 30px;
+			margin-left: 20px;
+			border-radius: 10px;
+			/* box-shadow: 20px 25px 20px #cbced1, -10px -10px 15px #fff; */
+			box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+		
+
+		}
+		.halfright{
+			background-color:white;
+			width: 100px;
+			height: 1500px;
+			margin-left:20px;
+			padding: 40px 30px 30px 30px;
+			/* border-top: 3px solid black;
+			border-bottom: 3px solid black; */
+			/* background-color: #ecf0f3; */
+			border-radius: 10px;
+			/* box-shadow: 20px 25px 20px #cbced1, -10px -10px 15px #fff; */
+			box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+				
+
+		}
+		.activity{
+			text-decoration: none;
+			display: flex;
+			
+			background-color: rgb(247, 242, 242);
+			margin-bottom: 20px;
+			padding-left: 20px;
+			padding-bottom: 10px;
+			padding-top: 10px;
+			border-radius: 1rem;
+			color: black;
+		}
+		.iconify{
+			height:70px;
+			width:70px;
+			
+		}
+	</style>
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="row">
+					<div class="col-md-3 halfleft">
+						  <!-- connections -->
+						  <p>connection</p>
+						<p>tuedjdvgweb nmwjdguyegbd bhjdewufyhjv dm fejhfuiegfigeifkebnkhbfwjyiiyehwkyg</p>
+					</div>
+					<div class="col-md-5 halfcenter">
+						  <!-- dashboard -->
+						  <p>dashboard</p>
+						  <span class="iconify" data-icon="bxs:user-circle"></span>
+					</div>
+					<div class="col-md-3 halfright">
+						<!-- dashboard -->
+						<h4>List Of Activities</h4>
+						<div class="form-outline">
+							<input type="search" id="form1" class="form-control" placeholder="Type query" aria-label="Search" />
+						</div>
+						<br>
+						<div class="tasks">
+							<a class="activity" href="#">Teaching-learning Tools</a>
+							<a class="activity" href="#">Awards</a>
+							<a class="activity" href="#">Publications</a>
+							<a class="activity" href="#">Fellowships</a>
+							<a class="activity"  href="#">Research Projects</a>
+							<a class="activity" href="#">IP Rights and Innovation</a>
+							<a class="activity" href="#">Books</a>
+							<a class="activity" href="#">Book Chapter</a>
+							<a class="activity" href="#">Int.Conf</a>
+							<a class="activity" href="#">Citation Counts</a>
+							<a class="activity" href="#">H-Index</a>
+							<a class="activity" href="#">Seminars/Conferences attented</a>
+							<a class="activity" href="#">Paper Presented in Conf</a>
+							<a class="activity" href="#">Resource Person</a>
+							<a class="activity" href="#">Consultancy</a>
+							<a class="activity" href="#">Paper Presented in Conf</a>
+							<a class="activity" href="#">Corporate Training</a>
+							<a class="activity" href="#">Internships</a>
+							<a class="activity" href="#">Awards for Innovation</a>
+							<a class="activity" href="#">MOU</a>
+						</div>
+				  </div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div> -->
-
-{% endblock %}
+</body>
+</html>
