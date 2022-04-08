@@ -69,3 +69,13 @@ class activeFaculty(models.Model):
 
     class Meta:
         db_table = "activefaculty"
+
+
+class pfconnect(models.Model):
+    PF_Id = models.IntegerField(default=False,primary_key=True)
+    P_Id = models.IntegerField(default=False)
+    F_Id = models.IntegerField(default=False)
+    F_Pos = models.IntegerField(default=False)
+
+    class Meta: 
+        db_table = "pfconnect"
