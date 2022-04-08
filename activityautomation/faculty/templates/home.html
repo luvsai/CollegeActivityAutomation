@@ -11,6 +11,9 @@
         <div>
           <button type="button"><span></span> WATCH MORE</button> 
           <button type="button"><span></span><a href="crlogin" id="login">SIGN IN</a</button> 
+          {% if messages %}
+            {{ messages }}
+          {% endif %}
         </div>
       </div>
     </div>

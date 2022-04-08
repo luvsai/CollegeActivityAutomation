@@ -36,7 +36,7 @@ def crlogin(request):
                 request.session["sessionid"] = temp
                 sessionid = temp
                 AF = activeFaculty.objects.create(F_Id= user,sessionid= sessionid)
-                return render(request,'welcome.html')
+                return render(request,'welcome.html', {'record': record})
             else :
                 return render(request,'error2.html')
         else:
@@ -44,8 +44,9 @@ def crlogin(request):
     else: #verify session id
         #is session id is valid
         F_Id = isSessionIDValid(sessionid)
+        record = faculty.objects.get(F_Id = F_Id)
         if  F_Id  != None:
-            return HttpResponse("Logged in as : "+str(F_Id))
+            return render(request, 'welcome.html', {'record':record})
         else:
             del request.session['sessionid']
             return HttpResponse("Invalid session user logout")
@@ -58,7 +59,8 @@ def login(request):
         #add session token to the database
         request.session["sessionid"] = temp
         sessionid = temp
-        return HttpResponse("Not logged in ")
+        messages = "Session Expired"
+        return render(request, 'home.html', {'messages':messages})
         
         
     return HttpResponse(sessionid +" <br>logged IN yayy!!!")
@@ -74,7 +76,7 @@ def logout(request):
         except:
             pass
         del request.session['sessionid']
-        return HttpResponse("Succesfullly Logged out")
+        return render(request, 'home.html')
 
 def home1(request):
     return render(request,'home.html')
