@@ -1,4 +1,7 @@
+import datetime
 from django.db import models
+from datetime import datetime
+
 
 # Create your models here.
 class dummy(models.Model):
@@ -14,21 +17,21 @@ class dummy(models.Model):
         db_table = "dummmy"
 
 class publications(models.Model):
-    P_Id = models.IntegerField(default=False,primary_key=True)
-    P_Title = models.CharField(default=False ,max_length=500)
-    P_Joural_Name = models.CharField(default=False ,max_length=500)
-    P_Indexing = models.CharField(default=False ,max_length=45)
-    P_IF_State = models.CharField(default=False ,max_length=100)
-    P_IF_Value  = models.CharField(default=False ,max_length=20)
-    P_IF_Source = models.CharField(default=False ,max_length=20)
-    P_DOP = models.CharField(default=False ,max_length=20)#models.DateTimeField(default=False)
-    P_DOI = models.CharField(default=False ,max_length=250)
-    P_Page_Nos = models.CharField(default=False ,max_length=45)
-    P_ISSN = models.CharField(default=False ,max_length=45)
-    P_Volume = models.CharField(default=False ,max_length=20)
-    P_Issue = models.CharField(default=False ,max_length=20)
-    P_Journal_Source = models.CharField(default=False ,max_length=500)
-    P_Paper_Source = models.CharField(default=False ,max_length=500)
+    P_Id = models.IntegerField(default=False, verbose_name="Publication ID", primary_key=True)
+    P_Title = models.CharField(default=False, verbose_name="Publication Title", max_length=500)
+    P_Joural_Name = models.CharField(default=False, verbose_name="Journal Name", max_length=500)
+    P_Indexing = models.CharField(default=False, verbose_name="Indexing", max_length=45)
+    P_IF_State = models.CharField(default=False, verbose_name="Impact Factor State", max_length=100)
+    P_IF_Value  = models.CharField(default=False, verbose_name="Impact Factor Value", max_length=20)
+    P_IF_Source = models.CharField(default=False, verbose_name="Impact Facotr Source", max_length=20)
+    P_DOP = models.DateTimeField(verbose_name="Date of Publications")#models.DateTimeField(default=False)
+    P_DOI = models.CharField(default=False, verbose_name="DOI",max_length=250)
+    P_Page_Nos = models.CharField(default=False, verbose_name="Number of Pages", max_length=45)
+    P_ISSN = models.CharField(default=False, verbose_name="ISSN", max_length=45)
+    P_Volume = models.CharField(default=False, verbose_name="Volume", max_length=20)
+    P_Issue = models.CharField(default=False, verbose_name="Issue", max_length=20)
+    P_Journal_Source = models.CharField(default=False, verbose_name="Journal Source", max_length=500)
+    P_Paper_Source = models.FileField(default=False, verbose_name="Paper Source",  max_length=500)
 
 
     class Meta:

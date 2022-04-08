@@ -23,7 +23,7 @@ urlpatterns = [
     path('crlogin', signin.crlogin,name='loginform'),
     path('home1', signin.home1,name='homepage'),
     path('welcome', signin.welcome,name='welcome'),
-    path('faculty_publications', signin.faculty_publications,name='faculty_publications'),
+    path('faculty_publications', signin.facultypublications,name='facultypublications'),
 ]
 
 

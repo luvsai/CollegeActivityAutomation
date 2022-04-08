@@ -1,5 +1,5 @@
 from django import forms
-from .models import User_Profile
+from .models import User_Profile,publications
 #DataFlair #File_Upload
 class Profile_Form(forms.ModelForm):
     class Meta:
@@ -11,3 +11,8 @@ class Profile_Form(forms.ModelForm):
         'email',
         'display_picture'
         ]
+
+class faculty_publications(forms.ModelForm):
+    class Meta:
+        model = publications
+        fields='__all__'
