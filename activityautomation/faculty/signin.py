@@ -11,6 +11,8 @@ import string
 from .signutilities import *
 from .forms import faculty_publications, Profile_Form
 
+from django.shortcuts import redirect
+
 user=''
 pwd=''
 @csrf_exempt
@@ -51,19 +53,19 @@ def crlogin(request):
             del request.session['sessionid']
             return HttpResponse("Invalid session user logout")
     #elsee show the login page
-@csrf_exempt
-def login(request):
-    sessionid = request.session.get("sessionid","NOSessionID")
-    if sessionid == "NOSessionID" :#not logged in
-        temp = getsessionid()
-        #add session token to the database
-        request.session["sessionid"] = temp
-        sessionid = temp
-        messages = "Session Expired"
-        return render(request, 'home.html', {'messages':messages})
+# @csrf_exempt
+# def login(request):
+#     sessionid = request.session.get("sessionid","NOSessionID")
+#     if sessionid == "NOSessionID" :#not logged in
+#         temp = getsessionid()
+#         #add session token to the database
+#         request.session["sessionid"] = temp
+#         sessionid = temp
+#         messages = "Session Expired"
+#         return render(request, 'home.html', {'messages':messages})
         
         
-    return HttpResponse(sessionid +" <br>logged IN yayy!!!")
+#     return HttpResponse(sessionid +" <br>logged IN yayy!!!")
 
 @csrf_exempt
 def logout(request):
@@ -101,8 +103,22 @@ def facultypublications(request):
     #             #return render(request, 'error.html')
     #         user_pr.save()
     #         return render(request, 'details.html', {'user_pr': user_pr})
-            return HttpResponse("Form saved")
+            response = redirect('/rwel')
+            return response
+            return    #HttpResponse("Form saved<a> Go to home</a>")
          else:
              return HttpResponse("Form is not valid")
     context = {"form": form,}
     return render(request, 'faculty_publications.html', context)
+
+
+def welcomeFun(request) :
+    sessionid = request.session.get("sessionid","NOSessionID")
+    F_Id = isSessionIDValid(sessionid)
+    record = faculty.objects.get(F_Id = F_Id)
+    if  F_Id  != None:
+        print(record)
+        return render(request, 'welcome.html', {'record':record})
+    else:
+        del request.session['sessionid']
+        return HttpResponse("Invalid session user logout")

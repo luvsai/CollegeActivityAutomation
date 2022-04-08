@@ -18,12 +18,16 @@ urlpatterns = [
     
     path('menu', views.menu,name='menu'),
 
-    path('login', signin.login,name='login'),
+
+    # path('login', signin.login,name='login'),
     path('logout', signin.logout,name='logout'),
     path('crlogin', signin.crlogin,name='loginform'),
     path('home1', signin.home1,name='homepage'),
     path('welcome', signin.welcome,name='welcome'),
     path('faculty_publications', signin.facultypublications,name='facultypublications'),
+
+
+    path('rwel', signin.welcomeFun,name='rwel')
 ]
 
 

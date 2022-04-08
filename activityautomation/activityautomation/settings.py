@@ -84,11 +84,11 @@ WSGI_APPLICATION = 'activityautomation.wsgi.application'
 DATABASES = {
      'default': {
          'ENGINE': 'django.db.backends.mysql',
-         'NAME': 'facultydb',
+         'NAME': 'actautomat',
          'HOST': '127.0.0.1',
          'PORT': '3306',
          'USER': 'root',
-         'PASSWORD': 'root',
+         'PASSWORD': 'mysql@123',
      }
  }
 
