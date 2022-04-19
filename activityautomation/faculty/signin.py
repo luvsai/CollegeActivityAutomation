@@ -89,25 +89,26 @@ def welcome(request):
 def facultypublications(request):
     form = faculty_publications()
     if request.method == 'POST':
-         form = faculty_publications(request.POST, request.FILES)
-         if form.is_valid():
-            # id = int(request.POST["P_Id"])
-            # title = request.POST["P_Title"]
-            # p_obj = publications.objects.create(P_Id= id,P_Title= title)
+        form = faculty_publications(request.POST, request.FILES)
+        if form.is_valid():
+        # id = int(request.POST["P_Id"])
+        # title = request.POST["P_Title"]
+        # p_obj = publications.objects.create(P_Id= id,P_Title= title)
             form.save()
-    #         user_pr = form.save(commit=False)
-    #         user_pr.display_picture = request.FILES['display_picture']
-    #         file_type = user_pr.display_picture.url.split('.')[-1]
-    #         file_type = file_type.lower()
-    #         #if file_type not in IMAGE_FILE_TYPES:
-    #             #return render(request, 'error.html')
-    #         user_pr.save()
-    #         return render(request, 'details.html', {'user_pr': user_pr})
+        
+#         user_pr = form.save(commit=False)
+#         user_pr.display_picture = request.FILES['display_picture']
+#         file_type = user_pr.display_picture.url.split('.')[-1]
+#         file_type = file_type.lower()
+#         #if file_type not in IMAGE_FILE_TYPES:
+#             #return render(request, 'error.html')
+#         user_pr.save()
+#         return render(request, 'details.html', {'user_pr': user_pr})
             response = redirect('/rwel')
             return response
             return    #HttpResponse("Form saved<a> Go to home</a>")
-         else:
-             return HttpResponse("Form is not valid")
+        else:
+            return HttpResponse("Form is not valid")
     context = {"form": form,}
     return render(request, 'faculty_publications.html', context)
 
