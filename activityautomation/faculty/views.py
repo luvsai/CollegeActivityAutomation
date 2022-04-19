@@ -258,7 +258,7 @@ def importpublicationData(request) :
             P_ISSN= result[i].col11,
             P_Volume= result[i].col12,P_Issue= result[i].col13,
             P_Journal_Source= result[i].col14,P_Paper_Source= result[i].col15) 
-        
+
             publication_obj.save()
         except :
             print(result[i].col5)
