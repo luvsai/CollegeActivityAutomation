@@ -9,8 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 import random
 import string
 from .signutilities import *
-from .forms import faculty_publications, Profile_Form
-
+from .forms import *
 from django.shortcuts import redirect
 
 user=''
@@ -37,7 +36,7 @@ def crlogin(request):
                 #add session token to the database
                 request.session["sessionid"] = temp
                 sessionid = temp
-                AF = activeFaculty.objects.create(F_Id= user,sessionid= sessionid)
+                AF = activeFaculty.objects.create(A_Id=user,F_Id= user,sessionid= sessionid)
                 return render(request,'welcome.html', {'record': record})
             else :
                 return render(request,'error2.html')
@@ -91,10 +90,18 @@ def facultypublications(request):
     if request.method == 'POST':
          form = faculty_publications(request.POST, request.FILES)
          if form.is_valid():
+            form.save()
             # id = int(request.POST["P_Id"])
             # title = request.POST["P_Title"]
             # p_obj = publications.objects.create(P_Id= id,P_Title= title)
-            form.save()
+            s_id=request.session['sessionid']
+            s_obj=activeFaculty.objects.get(sessionid=s_id)
+            pid=request.POST['P_Id']
+            fid=s_obj.F_Id
+            num=0
+           
+            pf_obj=pfconnect.objects.create(P_Id=pid,F_Id=fid,F_Pos=num)
+            
     #         user_pr = form.save(commit=False)
     #         user_pr.display_picture = request.FILES['display_picture']
     #         file_type = user_pr.display_picture.url.split('.')[-1]

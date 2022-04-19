@@ -8,7 +8,7 @@ from django.http import HttpResponse, JsonResponse
 
 from django.views.decorators.http import require_http_methods
 from parso import parse  
-from faculty.models import dummy , publications , faculty
+from faculty.models import *
 
 import datetime
 import random
@@ -21,6 +21,7 @@ from django.template import loader
 
 from .forms import Profile_Form
 from .models import User_Profile
+from reportlab.pdfgen import canvas
 
 
 
@@ -312,13 +313,7 @@ def viewFaculty(request) :
     
      # getting our template  
     return HttpResponse(template.render(parsedata))
-
-
-
-
-
-from reportlab.pdfgen import canvas  
-
+  
 def pdfgenerate(request):  
     response = HttpResponse(content_type='application/pdf')  
     response['Content-Disposition'] = 'attachment; filename="file.pdf"'  
@@ -337,6 +332,7 @@ def pdfgenerate(request):
     p.showPage()  
     p.save()  
     return response  
+
 
 
 IMAGE_FILE_TYPES = ['png', 'jpg', 'jpeg']
