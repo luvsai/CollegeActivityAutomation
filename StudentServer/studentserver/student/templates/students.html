@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+ 
+}
+</style>
+</head>
+<body>
+
+{% block title %}{{ section.title }}{% endblock %}
+
+{% block content %}
+
+
+
+
+
+    <h1>{{ section.title }}</h1>
+
+
+            <h2>MVGR Faculty Data </h2>  
+
+
+            <table>
+                <tr>
+                  <th>Faculty ID </th>
+                  <th>Faculty Name </th> 
+                </tr>
+                      {% for dat in data %}
+                      {% block table %}
+                        
+                             
+                              <tr> 
+
+                                {% for emp in dat %}
+                                  <td>{{emp}}</td>
+                                   
+                                {% endfor %}
+                                
+                              </tr>
+
+                      {% endblock %}
+
+                      {% endfor %}
+            </table>
+
+
+{% endblock %}
+
+</body>  
+</html> 

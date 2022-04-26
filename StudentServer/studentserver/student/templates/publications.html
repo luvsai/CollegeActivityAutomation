@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+    {% block content %}
+    <head>
+        <style>
+            
+            .pwrapper {
+    width: 500px;
+    height: 1300px;
+    margin: 50px auto;
+    padding: 40px 30px 30px 30px;
+    /* border-top: 3px solid black;
+    border-bottom: 3px solid black; */
+    /* background-color: #ecf0f3; */
+    border-radius: 10px;
+    /* box-shadow: 20px 25px 20px #cbced1, -10px -10px 15px #fff; */
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+.pwrapper .name {
+    font-weight: 600;
+    font-size: 1.4rem;
+    letter-spacing: 1.3px;
+    padding-left: 10px;
+    color: #555
+}
+
+.pwrapper .form-field input {
+    width: 100%;
+    display: block;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 1.2rem;
+    color: #666;
+    padding: 10px 15px 10px 10px
+}
+.pwrapper .form-field {
+    padding-left: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid black;
+    
+    /*box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #fff*/
+}
+
+.pwrapper .form-field .fas {
+    color: rgb(33, 26, 26)
+}
+
+.pwrapper .btn {
+    box-shadow: none;
+    width: 100%;
+    height: 40px;
+    background-color: black;
+    color: #fff;
+    border-radius: 25px;
+    box-shadow: 3px 3px 3px #b1b1b1, -3px -3px 3px #fff;
+    letter-spacing: 1.3px;
+}
+.pwrapper .btn:hover {
+    background-color: #009688
+}
+
+.pwrapper a {
+    text-decoration: none;
+    font-size: 0.8rem;
+    color: #03A9F4
+}
+
+.pwrapper a:hover {
+    color: #039BE5;
+}
+.ifdd{
+    background-color: black;
+}
+.radio{
+    border: 1px solid black;
+    border-radius: 5px;
+    display: block;
+    font-family: sans-serif;
+    font-size: 1.2rem;
+}
+.radio .left{
+    border: none;
+    padding-left: 18px;
+}
+.radio .right{
+    
+    font-family: sans-serif;
+    font-size: 1.2rem;
+    display: inline;
+}
+
+        </style>
+    </head>
+    <body>
+      <div class="pwrapper">
+      <h5 class="text-center alert alert-info"> ENTER YOUR PUBLICATION DETAILS </h5>
+        <form class="p-3 mt-3" method="POST"  action="welcome">
+          {% csrf_token %}           
+          <div class="form-field d-flex align-items-center"><input type="number" name="F_RegId" id="userName" placeholder="Publication ID" required> </div>
+            <div class="form-field d-flex align-items-center"><input type="text" name="F_Password" id="pwd" placeholder="Publication Title" required> </div>
+            <div class="form-field d-flex align-items-center"><input type="text" name="F_Password" id="pwd" placeholder="Journal Name" required> </div>
+            <div class="form-field d-flex align-items-center"><input type="text" name="F_Password" id="pwd" placeholder="Indexing" required> </div>
+            <div class="radio">
+            <input class="left" type="text" name="F_Password" id="pwd" placeholder="ImpactFactor" disabled><br><br>
+            <input style="margin-left: 18px;" type="radio" id="option1" name="zone" value="YES"><p class="right"> Yes</p>&nbsp;
+            <input type="radio" name="zone" id="option2" value="NO"><p class="right"> No</p>
+            </div>
+             <div class="form-field d-flex align-items-center"><input type="password" name="F_Password" id="pwd" placeholder="If Yes what is the impact factor?" required> </div>
+            <div class="form-field d-flex align-items-center"><input type="password" name="F_Password" id="pwd" placeholder="Impact Factor Source" required> </div>
+            <div class="form-field d-flex align-items-center"><input type="date" name="F_Password" id="pwd" placeholder="Date of Publication" required> </div>
+            <div class="form-field d-flex align-items-center"><input type="password" name="F_Password" id="pwd" placeholder="DOI" required> </div>
+            <div class="form-field d-flex align-items-center"><input type="password" name="F_Password" id="pwd" placeholder="Page numbers" required> </div>
+            <div class="form-field d-flex align-items-center"><input type="password" name="F_Password" id="pwd" placeholder="ISSN" required> </div>
+            <div class="form-field d-flex align-items-center"><input type="password" name="F_Password" id="pwd" placeholder="Volume" required> </div>
+            <div class="form-field d-flex align-items-center"><input type="password" name="F_Password" id="pwd" placeholder="Issue" required> </div>
+            <div class="form-field d-flex align-items-center"><input type="password" name="F_Password" id="pwd" placeholder="Journal Source" required> </div>
+            <div class="form-field d-flex align-items-center"><input type="password" name="F_Password" id="pwd" placeholder="Paper Source" required> </div> 
+            <button class="btn mt-3">Publish</button>
+        </form>
+        
+    </div>
+</body>
+    {% endblock %}   
+

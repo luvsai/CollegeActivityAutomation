@@ -9,46 +9,76 @@ from django.views.decorators.csrf import csrf_exempt
 import random
 import string
 from .signutilities import *
-from .forms import faculty_publications, Profile_Form
+ 
 
 from django.shortcuts import redirect
 
 user=''
 pwd=''
+
+
+sheets =  ['S1 Student Journal Pub',
+					'S2 Student Conference Publicati',
+					'S3 Student Internships',
+					'S4 Student Certifications',
+					'S5 Student WorkshopsConf attend',
+					'S6 Student NPTEL',
+					'S7 Student Workshops Organized',
+					'S8 Student Events Organized',
+					'S9 Student Guest Lectures Organ',
+					'S10 Student Prof. Body',
+					'S11 Student Awards',
+					'S12 Student capabilities enhanc',
+					'S13 Students Higher Edu.',
+					'S14 Students Competitive Exams',
+					'S15 Students Industry Visit',
+					'S16 Students Social Service Pro',
+					'S17 Students Leadership & Volun',
+					'S18 Students Placements']
+
+sdic = {}
+
+for sheet in sheets:
+    sdic [sheet] = sheet.replace(" ", "_")
+print(sdic)
 @csrf_exempt
 def crlogin(request):
     global user,pwd
     sessionid = request.session.get("sessionid","NOSessionID")
     if sessionid == "NOSessionID" :#not logged in                        
         if request.method == "POST": #do login and show the output
-            user = int(request.POST["F_RegId"])
+            user = str(request.POST["S_RegId"])
             #pwd = request.POST.get('F_Password', False)
             #user = int(request.POST.get('F_RegId', False))
-            pwd = request.POST["F_Password"] 
+            pwd = request.POST["S_Password"] 
             print("pwd" , pwd)
             print(user)
             try :
-                record = faculty.objects.get(F_Id = user)
+                record = student.objects.get(S_RegId = user)
+                print(1)
+                if pwd == record.S_Password:
+                    #generate session id 
+                    temp = getsessionid()
+                    print(2)
+                    #add session token to the database
+                    request.session["sessionid"] = temp
+                    sessionid = temp
+                    AF = activeStudent.objects.create(S_Id= record.S_Id ,sessionid= sessionid)
+
+                    return render(request,'welcome.html', {'record': record ,'sheets': sheets , 'sdic' : sdic})
+                else :
+                    return render(request,'error2.html')
             except:
                 return render(request,'error2.html')
-            if pwd == record.F_Password:
-                #generate session id 
-                temp = getsessionid()
-                #add session token to the database
-                request.session["sessionid"] = temp
-                sessionid = temp
-                AF = activeFaculty.objects.create(F_Id= user,sessionid= sessionid)
-                return render(request,'welcome.html', {'record': record})
-            else :
-                return render(request,'error2.html')
+            
         else:
             return render(request,'login.html')
     else: #verify session id
         #is session id is valid
-        F_Id = isSessionIDValid(sessionid)
-        record = faculty.objects.get(F_Id = F_Id)
-        if  F_Id  != None:
-            return render(request, 'welcome.html', {'record':record})
+        S_Id = isSessionIDValid(sessionid)
+        record = student.objects.get(S_Id = S_Id)
+        if  S_Id  != None:
+            return render(request, 'welcome.html', {'record':record ,'sheets': sheets, 'sdic' : sdic})
         else:
             del request.session['sessionid']
             return HttpResponse("Invalid session user logout")
@@ -86,48 +116,11 @@ def home1(request):
 def welcome(request):
     return render(request, 'welcome.html')
 
-def facultypublications(request):
-    form = faculty_publications()
-    if request.method == 'POST':
-        form = faculty_publications(request.POST, request.FILES)
-        sessionid = request.session.get("sessionid","NOSessionID")
-        F_Id = isSessionIDValid(sessionid)
-        if form.is_valid():
-        # id = int(request.POST["P_Id"])
-        # title = request.POST["P_Title"]
-        # p_obj = publications.objects.create(P_Id= id,P_Title= title)
-            post = form.save(commit=False)
-            iN = random.randint(0,9999999)
-            print("iN", iN)
-            fpos = post.P_Id
-            post.P_Id = iN
-            #post.published_date = timezone.now()
-            post.save()
-            f_obj = pfconnect.objects.create(P_Id= iN,F_Id = F_Id,F_Pos = fpos)
-            #form.save()
-        
-#         user_pr = form.save(commit=False)
-#         user_pr.display_picture = request.FILES['display_picture']
-#         file_type = user_pr.display_picture.url.split('.')[-1]
-#         file_type = file_type.lower()
-#         #if file_type not in IMAGE_FILE_TYPES:
-#             #return render(request, 'error.html')
-#         user_pr.save()
-#         return render(request, 'details.html', {'user_pr': user_pr})
-            response = redirect('/rwel')
-            return response
-            return    #HttpResponse("Form saved<a> Go to home</a>")
-        else:
-            return HttpResponse("Form is not valid")
-    context = {"form": form,}
-    return render(request, 'faculty_publications.html', context)
-
-
 def welcomeFun(request) :
     sessionid = request.session.get("sessionid","NOSessionID")
-    F_Id = isSessionIDValid(sessionid)
-    record = faculty.objects.get(F_Id = F_Id)
-    if  F_Id  != None:
+    S_Id = isSessionIDValid(sessionid)
+    record = student.objects.get(S_Id = S_Id)
+    if  S_Id  != None:
         print(record)
         return render(request, 'welcome.html', {'record':record})
     else:
@@ -136,4 +129,8 @@ def welcomeFun(request) :
 
 
 def showpublications(request) : 
+    return HttpResponse("showing publications of a user")
+
+
+def showact(request) : 
     return HttpResponse("showing publications of a user")

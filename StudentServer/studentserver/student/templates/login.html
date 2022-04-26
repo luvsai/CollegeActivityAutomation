@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+    {% block content %}
+      <div class="wrapper">
+        <div class="text-center mt-4 name"> Student Login </div>
+        <form class="p-3 mt-3" method="POST"  action="">
+          {%csrf_token %} 
+            <div class="form-field d-flex align-items-center"> <span class="far fa-user"></span> <input type="text" name="S_RegId" id="userName" placeholder="Username"> </div>
+            <div class="form-field d-flex align-items-center"> <span class="fas fa-key"></span> <input type="password" name="S_Password" id="pwd" placeholder="Password"> </div> 
+            <button class="btn mt-3">Login</button>
+        </form>
+        <div class="text-center fs-6"><a href="#">Forget password?</a></div>
+    </div>
+    {% endblock %}   
+

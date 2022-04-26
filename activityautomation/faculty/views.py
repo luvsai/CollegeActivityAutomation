@@ -311,6 +311,7 @@ def viewFaculty(request) :
     #return JsonResponse(parsedata)
     
      # getting our template  
+     
     return HttpResponse(template.render(parsedata))
 
 

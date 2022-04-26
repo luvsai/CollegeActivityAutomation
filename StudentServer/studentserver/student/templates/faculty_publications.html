@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+  {% block content %}
+  <head>
+      <style>
+          .wrapper{
+              height: 700px;
+              width: 600px;
+          }
+      </style>
+  </head>
+        <center>
+            <div class="wrapper">
+                <h5 class="text-center alert alert-info"> ENTER YOUR PUBLICATION DETAILS </h5>
+                <form method="POST" enctype="multipart/form-data">
+                        <!-- Very Important csrf Token -->
+                        {% csrf_token %}
+                        <table>
+                            {{ form.as_table }}
+                        </table>
+                        <br><input type="submit" class="btn btn-primary btn-lg" name="register">
+                </form>
+            </div>
+        </center>
+   {% endblock %}
+   

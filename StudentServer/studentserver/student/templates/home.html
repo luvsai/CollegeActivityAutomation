@@ -1,0 +1,20 @@
+
+    {% extends 'base.html' %}
+    {% block content %}
+
+
+      <div class="content">
+        <h1>Welcome to MVGR Student Activity Website</h1>
+        <p>This is the website where you can find the details of the faculty,<br>their professional achievements 
+          like paper publications.
+        </p>
+        <div>
+          <button type="button"><span></span> WATCH MORE</button> 
+          <button type="button"><span></span><a href="crlogin" id="login">SIGN IN</a</button> 
+          {% if messages %}
+            {{ messages }}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endblock %}

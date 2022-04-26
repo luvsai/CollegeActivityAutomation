@@ -16,15 +16,31 @@ class dummy(models.Model):
     class Meta:
         db_table = "dummmy"
 
+FPos_cho = (
+   (1, '1'),
+   (2, '2'),
+   (3, '3'),
+   (4, '4'),
+   (5, '5'),
+   (6, '6'),
+   (7, '7'),
+   (8, '8'),
+   (9, '9'),
+   (10, '10'),
+)
+I_Factor_CHOICES = (
+   ('Yes', 'Yes'),
+   ('No', 'No')
+)
 class publications(models.Model):
-    P_Id = models.IntegerField(verbose_name="Publication ID", primary_key=True)
+    P_Id = models.IntegerField(choices=FPos_cho,verbose_name="Faculty Position", primary_key=True,default='1')
     P_Title = models.CharField(verbose_name="Publication Title", max_length=500)
     P_Joural_Name = models.CharField(default="", verbose_name="Journal Name", max_length=500)
     P_Indexing = models.CharField(default="", verbose_name="Indexing", max_length=45)
-    P_IF_State = models.CharField(default="NO", verbose_name="Impact Factor State", max_length=100)
+    P_IF_State = models.CharField(choices=I_Factor_CHOICES,default="No", verbose_name="Impact Factor State", max_length=100)
     P_IF_Value  = models.CharField(default="", verbose_name="If Yes what is the impact factor?", max_length=20)
     P_IF_Source = models.CharField(default="", verbose_name="Impact Factor Source", max_length=20)
-    P_DOP = models.DateTimeField(verbose_name="Date of Publications")#models.DateTimeField(default=False)
+    P_DOP = models.DateField(verbose_name="Date of Publications")#models.DateTimeField(default=False)
     P_DOI = models.CharField(default="", verbose_name="DOI",max_length=250)
     P_Page_Nos = models.CharField(default="", verbose_name="Page numbers", max_length=45)
     P_ISSN = models.CharField(default="", verbose_name="ISSN", max_length=45)
