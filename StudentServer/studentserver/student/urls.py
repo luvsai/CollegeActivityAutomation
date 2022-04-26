@@ -52,7 +52,8 @@ urlpatterns = [
 ]
 for sheet in sheets :
     sheet = sheet.replace(" ", "_")
-    urlpatterns.append(  path(sheet, data.showact, name='sheetn'))
+    urlpatterns.append(  path(sheet, data.showact, name=sheet))
+    urlpatterns.append(  path('<str:value>' , data.showact, name=sheet))
 
 
 

@@ -263,7 +263,7 @@
 					<div class="tasks"> 
 						{% for key, value in sdic.items %}
 
-						<a class="activity" href="{% url 'sheetn'  value %}">{{ key }}</a>
+						<a class="activity" href="{% url value  value %}">{{ key }}</a>
 
 						{% endfor %}
 					 

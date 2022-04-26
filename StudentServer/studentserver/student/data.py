@@ -42,7 +42,7 @@ sheets = ['S1 Student Journal Pub',
 df2 = pd.read_excel('sres.xlsx',
                  sheets)
 
-sheetsExclude = [  
+sheetsExclude = [   'S7 Student Workshops Organized',
 'S8 Student Events Organized',
  'S9 Student Guest Lectures Organ',
  'S10 Student Prof. Body',
@@ -50,7 +50,7 @@ sheetsExclude = [
 
 
 ]
-def showact(request) : 
+def showact(request,value="") : 
     sessionid = request.session.get("sessionid","NOSessionID")
     S_Id = isSessionIDValid(sessionid)
     record = student.objects.get(S_Id = S_Id)
@@ -60,11 +60,17 @@ def showact(request) :
         url  = aurl.split("/")[-1].replace("_" ," ") #accesed sheet name
         flag = False
         actsheet = df2[url]
+        
+        
         print(type(actsheet))
         htmlsheet = actsheet.to_html() # all the data 
+        
         options = [record.S_RegId] 
         userdata_html = htmlsheet
         if url not in sheetsExclude : 
+            actsheet = actsheet.sort_values(by=['Roll Number'], ascending=True)
+            actsheet['Roll Number'] = actsheet['Roll Number'].map( str.upper)
+            htmlsheet = actsheet.to_html() # all the data 
             flag = True
             user_data = actsheet[ actsheet['Roll Number'].isin(options) ]
             userdata_html = user_data.to_html()
