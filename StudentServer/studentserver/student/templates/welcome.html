@@ -17,6 +17,27 @@
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
     <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
 	<style>
+		table {
+		  font-family: arial, sans-serif;
+		  border-collapse: collapse;
+		  width: 100%;
+		}
+		
+		td, th { 
+		  text-align: left;
+		  padding: 8px;
+		}
+		
+		th ,td {
+		  white-space: nowrap; 
+		  padding: 20px;
+		}
+		
+		tr:nth-child(even) {
+		  background-color: #dddddd;
+		 
+		}
+	 
 		.navbar-nav {
 			margin-left: auto;
             margin-right: 10%;
@@ -258,14 +279,32 @@
 					</div>
 					<br>
 				 
-				
-					
-					<div class="tasks"> 
+				 <table class="tasks" style="padding: 10;">
+					 <tr class="activity" ><th style="color: green;" >All Students Count</th> <th style="color: skyblue;" >Activity</th> <th>My Count</th></tr>
 						{% for key, value in sdic.items %}
-
-						<a class="activity" href="{% url value  value %}">{{ key }}</a>
-
+						
+						<tr class="activity">
+							<td style="color: green;">{{ value.1 }} </td>
+							<td>	<a  href="{% url key  value.0 %}">{{ key }}</a></td>
+							<td>{{ value.2 }}</td>
+						</tr>
+						 
 						{% endfor %}
+					
+					 
+					 
+					</table>
+
+					
+					<!-- <div class="tasks"> 
+						{% for key, value in sdic.items %}
+						<div style="display:inline" class="activity">
+						{{ value.1 }} 
+						<a class="activity" href="{% url key  value.0 %}">{{ key }}</a>
+						{{ value.2 }}
+						<br>
+					</div>
+						{% endfor %} -->
 					 
 
 					  	<!-- <a class="activity" href="#">{{ sheets.0 }}</a>
@@ -289,7 +328,7 @@
 						<a class="activity" href="#">Internships</a>
 						<a class="activity" href="#">Awards for Innovation</a>
 						<a class="activity" href="#">MOU</a> -->
-					</div>
+					<!-- </div> -->
 
 					 
 			  </div>

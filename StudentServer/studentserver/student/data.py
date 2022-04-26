@@ -50,7 +50,7 @@ sheetsExclude = [   'S7 Student Workshops Organized',
 
 
 ]
-def showact(request,value="") : 
+def showact(request,key="") : 
     sessionid = request.session.get("sessionid","NOSessionID")
     S_Id = isSessionIDValid(sessionid)
     record = student.objects.get(S_Id = S_Id)
@@ -69,6 +69,7 @@ def showact(request,value="") :
         userdata_html = htmlsheet
         if url not in sheetsExclude : 
             actsheet = actsheet.sort_values(by=['Roll Number'], ascending=True)
+            actsheet['Roll Number'] = actsheet['Roll Number'].map( str)
             actsheet['Roll Number'] = actsheet['Roll Number'].map( str.upper)
             htmlsheet = actsheet.to_html() # all the data 
             flag = True

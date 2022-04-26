@@ -12,7 +12,7 @@ from .signutilities import *
  
 
 from django.shortcuts import redirect
-
+import pandas as pd
 user=''
 pwd=''
 
@@ -38,9 +38,46 @@ sheets =  ['S1 Student Journal Pub',
 
 sdic = {}
 
-for sheet in sheets:
-    sdic [sheet] = sheet.replace(" ", "_")
-print(sdic)
+df2 = pd.read_excel('sres.xlsx',
+                 sheets)
+
+sheetsExclude = [   'S7 Student Workshops Organized',
+'S8 Student Events Organized',
+ 'S9 Student Guest Lectures Organ',
+ 'S10 Student Prof. Body',
+  'S12 Student capabilities enhanc' 
+
+
+]
+
+
+
+
+#print(sdic)
+def loadStats(RegId=""):
+
+    sdict = {}
+    for sheet in sheets:
+        actsheet = df2[sheet]
+        u = 0
+        all = actsheet.shape[0]
+        if sheet not in sheetsExclude :
+            actsheet = actsheet.sort_values(by=['Roll Number'], ascending=True)
+            actsheet['Roll Number'] = actsheet['Roll Number'].map( str)
+            actsheet['Roll Number'] = actsheet['Roll Number'].map( str.upper)
+            
+
+            options = [RegId]  
+            user_data = actsheet[ actsheet['Roll Number'].isin(options) ] 
+            u = user_data.shape[0]
+            
+        sdict [sheet] = [sheet.replace(" ", "_"), all, u]
+    print(sdict)
+    return sdict
+
+
+
+
 @csrf_exempt
 def crlogin(request):
     global user,pwd
@@ -64,6 +101,7 @@ def crlogin(request):
                     request.session["sessionid"] = temp
                     sessionid = temp
                     AF = activeStudent.objects.create(S_Id= record.S_Id ,sessionid= sessionid)
+                    sdic = loadStats(RegId=record.Re_Id)
 
                     return render(request,'welcome.html', {'record': record ,'sheets': sheets , 'sdic' : sdic})
                 else :
@@ -78,7 +116,8 @@ def crlogin(request):
         S_Id = isSessionIDValid(sessionid)
         record = student.objects.get(S_Id = S_Id)
         if  S_Id  != None:
-            return render(request, 'welcome.html', {'record':record ,'sheets': sheets, 'sdic' : sdic})
+            sdict = loadStats(RegId=record.S_RegId)
+            return render(request, 'welcome.html', {'record':record ,'sheets': sheets, 'sdic' : sdict})
         else:
             del request.session['sessionid']
             return HttpResponse("Invalid session user logout")
@@ -104,7 +143,7 @@ def logout(request):
         return HttpResponse("Not Logged in")
     else :
         try :
-            activeFaculty.objects.get(sessionid=sessionid).delete()
+            activeStudent.objects.get(sessionid=sessionid).delete()
         except:
             pass
         del request.session['sessionid']
