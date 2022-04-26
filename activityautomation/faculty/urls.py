@@ -25,6 +25,7 @@ urlpatterns = [
     path('home1', signin.home1,name='homepage'),
     path('welcome', signin.welcome,name='welcome'),
     path('faculty_publications', signin.facultypublications,name='facultypublications'),
+    path('showpublications', signin.showpublications,name='showpublications'),
 
 
     path('rwel', signin.welcomeFun,name='rwel')

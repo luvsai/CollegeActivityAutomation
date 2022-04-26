@@ -23,7 +23,7 @@ class publications(models.Model):
     P_Indexing = models.CharField(default="", verbose_name="Indexing", max_length=45)
     P_IF_State = models.CharField(default="NO", verbose_name="Impact Factor State", max_length=100)
     P_IF_Value  = models.CharField(default="", verbose_name="If Yes what is the impact factor?", max_length=20)
-    P_IF_Source = models.CharField(default="", verbose_name="Impact Facotr Source", max_length=20)
+    P_IF_Source = models.CharField(default="", verbose_name="Impact Factor Source", max_length=20)
     P_DOP = models.DateTimeField(verbose_name="Date of Publications")#models.DateTimeField(default=False)
     P_DOI = models.CharField(default="", verbose_name="DOI",max_length=250)
     P_Page_Nos = models.CharField(default="", verbose_name="Page numbers", max_length=45)

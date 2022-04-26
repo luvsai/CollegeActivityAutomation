@@ -90,11 +90,20 @@ def facultypublications(request):
     form = faculty_publications()
     if request.method == 'POST':
         form = faculty_publications(request.POST, request.FILES)
+        sessionid = request.session.get("sessionid","NOSessionID")
+        F_Id = isSessionIDValid(sessionid)
         if form.is_valid():
         # id = int(request.POST["P_Id"])
         # title = request.POST["P_Title"]
         # p_obj = publications.objects.create(P_Id= id,P_Title= title)
-            form.save()
+            post = form.save(commit=False)
+            iN = random.randint(0,9999999)
+            print("iN", iN)
+            post.P_Id = iN
+            #post.published_date = timezone.now()
+            post.save()
+            f_obj = pfconnect.objects.create(P_Id= iN,F_Id = F_Id,F_Pos = 0)
+            #form.save()
         
 #         user_pr = form.save(commit=False)
 #         user_pr.display_picture = request.FILES['display_picture']
@@ -123,3 +132,7 @@ def welcomeFun(request) :
     else:
         del request.session['sessionid']
         return HttpResponse("Invalid session user logout")
+
+
+def showpublications(request) : 
+    return HttpResponse("showing publications of a user")
