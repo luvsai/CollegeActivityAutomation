@@ -8,7 +8,7 @@ from django.http import HttpResponse, JsonResponse
 
 from django.views.decorators.http import require_http_methods
 from parso import parse  
-from faculty.models import dummy , publications , faculty
+from faculty.models import dummy , publications , faculty ,Products
 
 import datetime
 import random
@@ -20,7 +20,7 @@ import os
 from django.template import loader  
 
 from .forms import Profile_Form
-from .models import User_Profile
+from .models import  User_Profile
 
 
 
@@ -225,6 +225,7 @@ def hello(request) :
  
 
 def importpublicationData(request) :
+    
     #return HttpResponse("OK")
 
 
@@ -258,7 +259,7 @@ def importpublicationData(request) :
             P_ISSN= result[i].col11,
             P_Volume= result[i].col12,P_Issue= result[i].col13,
             P_Journal_Source= result[i].col14,P_Paper_Source= result[i].col15) 
-
+        
             publication_obj.save()
         except :
             print(result[i].col5)
@@ -310,8 +311,7 @@ def viewFaculty(request) :
     
     #return JsonResponse(parsedata)
     
-     # getting our template  
-     
+# # getting our template  
     return HttpResponse(template.render(parsedata))
 
 
@@ -343,17 +343,17 @@ def pdfgenerate(request):
 IMAGE_FILE_TYPES = ['png', 'jpg', 'jpeg']
 def create_profile(request):
     form = Profile_Form()
-    # if request.method == 'POST':
-    #     form = Profile_Form(request.POST, request.FILES)
-    #     if form.is_valid():
-    #         user_pr = form.save(commit=False)
-    #         user_pr.display_picture = request.FILES['display_picture']
-    #         file_type = user_pr.display_picture.url.split('.')[-1]
-    #         file_type = file_type.lower()
-    #         #if file_type not in IMAGE_FILE_TYPES:
-    #             #return render(request, 'error.html')
-    #         user_pr.save()
-    #         return render(request, 'details.html', {'user_pr': user_pr})
+    if request.method == 'POST':
+        form = Profile_Form(request.POST, request.FILES)
+        if form.is_valid():
+            user_pr = form.save(commit=False)
+            user_pr.display_picture = request.FILES['display_picture']
+            file_type = user_pr.display_picture.url.split('.')[-1]
+            file_type = file_type.lower()
+            #if file_type not in IMAGE_FILE_TYPES:
+                #return render(request, 'error.html')
+            user_pr.save()
+            return render(request, 'details.html', {'user_pr': user_pr})
     context = {"form": form,}
     return render(request, 'create.html', context)
 
@@ -415,4 +415,48 @@ def home(request):
 """
 
     return HttpResponse(strres)
+
+
+
+
+
+
+
+
+
+
+
+
+
+def products(request):
+    objects = Products.objects.all()
+    
+
+
+
+
+    res ='Printing all Product entries in the DB : <br>'
+    
+     
+    parsedata = {}
+    product = []
+    for rec in objects:
+        product.append([rec.pid , rec.pname])
+    parsedata["products"] = product
+
+    
+    
+    return JsonResponse(parsedata)
+    template = loader.get_template('faculty.html')
+    
+    
+    
+    return HttpResponse("{ \"pid\" :1234 ,\"pname\" : \"Santoor Mommy\"}")
+    pass
+
+
+
+
+
+
 
