@@ -20,7 +20,7 @@ import threading
 import time
 user=''
 pwd=''
-
+import os
 
 esheets =  ['S1 Student Journal Pub',
 					'S2 Student Conference Publicati',
@@ -42,9 +42,11 @@ esheets =  ['S1 Student Journal Pub',
 					'S18 Students Placements']
 
 sdic = {}
-
-df2 = pd.read_excel('sres4.xlsx',
-                  esheets)
+file_s = open(os.path.join(settings.BASE_DIR, 'sres4.xlsx'), "r")
+ 
+df2 = pd.read_excel(file_s,
+                 esheets)
+ 
 
 
 esheetsExclude = [   'S7 Student Workshops Organized',
