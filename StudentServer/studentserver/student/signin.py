@@ -12,7 +12,7 @@ from django.views.decorators.csrf import csrf_exempt
 import random
 import string
 from .signutilities import *
- 
+from django.conf import settings
 
 from django.shortcuts import redirect
 import pandas as pd
@@ -42,8 +42,8 @@ esheets =  ['S1 Student Journal Pub',
 					'S18 Students Placements']
 
 sdic = {}
-file_s = open(os.path.join(settings.BASE_DIR, 'sres4.xlsx'), "r")
- 
+file_s = os.path.join(settings.BASE_DIR, 'sres4.xlsx')
+print(file_s)
 df2 = pd.read_excel(file_s,
                  esheets)
  
