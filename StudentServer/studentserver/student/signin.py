@@ -45,7 +45,7 @@ sdic = {}
 file_s = os.path.join(settings.BASE_DIR, 'sres4.xlsx')
 print(file_s)
 df2 = pd.read_excel(file_s,
-                 esheets)
+                 esheets, engine='openpyxl')
  
 
 
