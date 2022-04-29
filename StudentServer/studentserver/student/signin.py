@@ -1,8 +1,11 @@
+from dataclasses import dataclass
 import imp
 import re
 from turtle import title
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
+
+from  .gsheets import getSheetdf
 from .models import  *
 import json
 from django.views.decorators.csrf import csrf_exempt
@@ -13,17 +16,19 @@ from .signutilities import *
 
 from django.shortcuts import redirect
 import pandas as pd
+import threading
+import time
 user=''
 pwd=''
 
 
-sheets =  ['S1 Student Journal Pub',
+esheets =  ['S1 Student Journal Pub',
 					'S2 Student Conference Publicati',
 					'S3 Student Internships',
 					'S4 Student Certifications',
-					'S5 Student WorkshopsConf attend',
+				'S5 Student WorkshopsConf attend',
 					'S6 Student NPTEL',
-					'S7 Student Workshops Organized',
+				#	'S7 Student Workshops Organized',
 					'S8 Student Events Organized',
 					'S9 Student Guest Lectures Organ',
 					'S10 Student Prof. Body',
@@ -38,10 +43,11 @@ sheets =  ['S1 Student Journal Pub',
 
 sdic = {}
 
-df2 = pd.read_excel('sres.xlsx',
-                 sheets)
+df2 = pd.read_excel('sres4.xlsx',
+                  esheets)
 
-sheetsExclude = [   'S7 Student Workshops Organized',
+
+esheetsExclude = [   'S7 Student Workshops Organized',
 'S8 Student Events Organized',
  'S9 Student Guest Lectures Organ',
  'S10 Student Prof. Body',
@@ -51,36 +57,145 @@ sheetsExclude = [   'S7 Student Workshops Organized',
 ]
 
 
+#-----gsheets
+sheets = ['S1: Student Journal Pub',
+ 'S2: Student Conference Publication', 
+ 'S3: Student Internships',
+  'S4: Student Certifications',
+  'S5: Student Workshops/Conf attended',
+    'S6: Student NPTEL', 
+#    'S7: Student Workshops Organized',
+    'S8: Student Events Organized',
+     'S9: Student Guest Lectures Organized',
+      'S10: Student Prof. Body', 
+      'S11: Student Awards',
+       'S12: Student capabilities enhancement', 
+       'S13: Students Higher Edu.', 
+       'S14: Students Competitive Exams',
+ 'S15: Students Industry Visit',
+  'S16: Students Social Service Programs',
+   'S17: Students Leadership & Volunteering Activities', 
+   'S18: Students Placements']
+
+sheetsExclude = [   
+    # 'S7: Student Workshops Organized',
+  'S8: Student Events Organized',
+     'S9: Student Guest Lecutres Organized',
+     'S10: Student Prof. Body', 
+   'S12: Student capabilities enhancement'
+
+
+]
+#---
+
+
+nsheets = []
+
+
+count = 1
+#-----------------function to load the data sheet from the google sheets into memory
+memorysheets = {}
+def loadsheets() :
+    global count
+    while True:
+        print("signin.py: ++++++loading sheets started : Count : --->>>" ,count)
+        for i in range(len(sheets)):
+            actsheet = getSheetdf(sheets[i])
+            memorysheets[sheets[i]] = actsheet
+        print("signin.py: ------loading sheets completed : Count : --->>>" ,count)
+        count +=1
+        time.sleep(30)
+
+       
+
+
+t1 = threading.Thread(target=loadsheets)
+t1.start()
+
+
+
+#------
+
+
+
 
 
 #print(sdic)
 def loadStats(RegId=""):
-
+    global nsheets
+    nsheets = []
     sdict = {}
-    for sheet in sheets:
-        actsheet = df2[sheet]
+    for i in range(len(sheets)):
+        actsheet = memorysheets[sheets[i]]
+        if actsheet is  None:
+            actsheet = df2[esheets[i]]
+            u = 0
+            all = actsheet.shape[0]
+            if esheets[i] not in esheetsExclude :
+                try :
+                    actsheet = actsheet.sort_values(by=['Roll Number'], ascending=True)
+                    actsheet['Roll Number'] = actsheet['Roll Number'].map( str)
+                    actsheet['Roll Number'] = actsheet['Roll Number'].map( str.upper)
+                    
+
+                    options = [RegId]  
+                    user_data = actsheet[ actsheet['Roll Number'].isin(options) ] 
+                    u = user_data.shape[0]
+                except:
+                    pass
+            print(esheets[i])
+            href = esheets[i].replace(" ", "_")
+            href = href.replace(":", "-")
+            href = href.replace("/", "~")
+            sdict [esheets[i]] = [href, all, u]
+
+            nsheets.append(esheets[i])
+            print(href)
+            continue
         u = 0
         all = actsheet.shape[0]
-        if sheet not in sheetsExclude :
-            actsheet = actsheet.sort_values(by=['Roll Number'], ascending=True)
-            actsheet['Roll Number'] = actsheet['Roll Number'].map( str)
-            actsheet['Roll Number'] = actsheet['Roll Number'].map( str.upper)
-            
+        if sheets[i] not in sheetsExclude :
+            try :
+                actsheet = actsheet.sort_values(by=['Roll Number'], ascending=True)
+                actsheet['Roll Number'] = actsheet['Roll Number'].map( str)
+                actsheet['Roll Number'] = actsheet['Roll Number'].map( str.upper)
+                
 
-            options = [RegId]  
-            user_data = actsheet[ actsheet['Roll Number'].isin(options) ] 
-            u = user_data.shape[0]
-            
-        sdict [sheet] = [sheet.replace(" ", "_"), all, u]
+                options = [RegId]  
+                user_data = actsheet[ actsheet['Roll Number'].isin(options) ] 
+                u = user_data.shape[0]
+            except:
+                pass
+        print(sheets[i])
+        
+        href = sheets[i].replace(" ", "_")
+        href = href.replace(":", "-")
+        href = href.replace("/", "~")
+        sdict [sheets[i]] = [href, all, u]
+        print(href)
+        nsheets.append( sheets[i])
     print(sdict)
+    sdic = sdict
     return sdict
+
+piedata = [
+  
+  ['Student Activities', 'Count']
+  
+]
+
+def addPieData(sdict) :
+    piedat = piedata[:]
+    for key ,value in sdict.items() :
+        piedat.append([key , value[2]])
+    return piedat
 
 
 
 
 @csrf_exempt
 def crlogin(request):
-    global user,pwd
+    global user,pwd  , nsheets
     sessionid = request.session.get("sessionid","NOSessionID")
     if sessionid == "NOSessionID" :#not logged in                        
         if request.method == "POST": #do login and show the output
@@ -99,11 +214,16 @@ def crlogin(request):
                     print(2)
                     #add session token to the database
                     request.session["sessionid"] = temp
+                    print(2)
                     sessionid = temp
+                    print(3)
                     AF = activeStudent.objects.create(S_Id= record.S_Id ,sessionid= sessionid)
-                    sdic = loadStats(RegId=record.Re_Id)
+                    print(4)
+                    sdict = loadStats(RegId=record.S_RegId)
+                    piedat =  addPieData(sdict)
+                    print(5)
 
-                    return render(request,'welcome.html', {'record': record ,'sheets': sheets , 'sdic' : sdic})
+                    return render(request,'welcome.html', {'record': record ,'sheets': nsheets , 'sdic' : sdict, 'piedata' : piedat})
                 else :
                     return render(request,'error2.html')
             except:
@@ -117,7 +237,8 @@ def crlogin(request):
         record = student.objects.get(S_Id = S_Id)
         if  S_Id  != None:
             sdict = loadStats(RegId=record.S_RegId)
-            return render(request, 'welcome.html', {'record':record ,'sheets': sheets, 'sdic' : sdict})
+            piedat =  addPieData(sdict)
+            return render(request,'welcome.html', {'record': record ,'sheets': nsheets , 'sdic' : sdict, 'piedata' : piedat})
         else:
             del request.session['sessionid']
             return HttpResponse("Invalid session user logout")
