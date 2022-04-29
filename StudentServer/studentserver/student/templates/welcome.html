@@ -300,7 +300,7 @@
 			height: 2000px;
             margin-left: 20px;
             margin-top: 30px;
-			padding: 40px 30px 30px 30px;
+			padding: 10px 30px 40px 30px ;
 			border-radius: 10px;
 			box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
             padding-right: 50px;
@@ -312,7 +312,7 @@
 			height: 2000px;
             margin-left: 20px;
             margin-top: 30px;
-			padding: 40px 30px 30px 10px;
+			padding:  40px 20px 40px 20px ;
 			border-radius: 10px;
 			box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 			
@@ -322,7 +322,9 @@
 				.child1 {
 				display: inline-block;  	
 				vertical-align: middle;
-				 
+				position: absolute;
+				top: 0;
+				left: 0;
 				}
 				.child2 {
 				display: inline-block;  	
@@ -337,7 +339,7 @@
 			height: 2000px;
 			margin-left: 20px;
             margin-top: 30px;
-			padding: 40px 10px 30px 30px;
+			padding:  40px 20px 40px 20px ;
 			border-radius: 10px;
 			box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 
@@ -476,7 +478,7 @@
 	<!---->
 	  <div class="feed-identity-module__actor-meta break-words">
 		<div class="feed-identity-module__member-bg-image
-			" style="background-image:url(https://media-exp1.licdn.com/dms/image/C5616AQGQDgpnuOiN5w/profile-displaybackgroundimage-shrink_200_800/0/1622056308909?e=2147483647&amp;v=beta&amp;t=hJSJaq-gp5BoSUoI_5yXtHF2UzKj5I1dYh1cil49Wxg)">
+			" style="background-image:url(https://images.unsplash.com/photo-1553095066-5014bc7b7f2d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8d2FsbCUyMGJhY2tncm91bmR8ZW58MHx8MHx8&w=1000&q=80)">
 	<!---->    </div>
 	
 		<a href="/in/luvsai/" id="ember127" class="ember-view block">
@@ -543,9 +545,15 @@
 				
 					 
 					  </div>
+
+
+					  <!-- pie chart -->
 					  <div style="height: 70px;"></div>
 					 <center> <div class="feed-identity-module artdeco-card overflow-hidden mb2"style="padding  : 5px;"> 
-						<div id="piechart" ></div> </div></center>
+					
+						<div id="piechart" ></div> 
+						<div class='child1'> <h4 class="text-center alert alert-info">Overall Records</h4></div>
+					</div></center>
 
 					  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 					  
@@ -563,7 +571,7 @@
 						  
 				 
 						// Optional; add a title and set the width and height of the chart
-						var options = {'title':'Overall records', 'width':550, 'height':400};
+						var options = {'title':'', 'width':550, 'height':400};
 					  
 						// Display the chart inside the <div> element with id="piechart"
 						var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -573,8 +581,54 @@
 
 
 
-				</div>
+
+  <!-- top studentss -->
+  <div style="height: 70px;"></div>
+  <center> <div class="feed-identity-module artdeco-card  mb2"style="padding  : 5px;"> 
+ 
+	  <div style="height: 50px;"></div>
+
+	{% for val in topstu %}
+
+	<div class="feed-identity-module artdeco-card  mb2"style="padding  : 5px;"> 
+
+		 	
+			 
 				 
+				<div>
+					<div class="t-14 t-black t-bold"> 	 {{ val.1 }}</div>
+					<h4 style="color: rgb(45, 102, 209);">{{ val.0 }}</h4> 
+					<h4 style="color: rgb(79, 79, 79);">{{ val.2 }}</h4> 
+				</div>		
+		 
+				<div class='child2'> <h4 class="text-center alert alert-info">	 {{ val.3 }}</h4></div>
+	 
+ 
+				<div class='child1'> <h4 class="text-center alert alert-danger">#{{val.4}}</h4></div>
+
+ 
+	</div>
+	  
+	{% endfor %}
+	 
+
+
+
+
+
+	 <div class='child1'> <h4 class="text-center alert alert-info">Top Performers</h4></div>
+ </div></center>
+
+
+
+
+				</div>
+
+
+
+				<!-- end topstu -->
+
+				   <!-- right frame -->
 				<div class="col-md-4 halfright">
 					<div class='child2'> <h4 class="text-center alert alert-info">Activities</h4></div>
 					<div class="form-outline">
@@ -582,12 +636,12 @@
 					</div>
 					<br>
 				 
-				 <table class="tasks" style="padding: 3;">
+			 
 				 
 			
 						{% for key, value in sdic.items %}
 						
-						<h3><tr class="activity">
+						<h3>
 					
 							<div class="feed-identity-module artdeco-card  "style="padding  : 20px;">	
 								<div class="feed-identity-module__actor-meta break-words">
@@ -603,7 +657,7 @@
 							</div>
 
 						</div>
-						</tr>
+					 
 
 
 
@@ -614,10 +668,7 @@
 						{% endfor %}
 					
 					 
-					 
-					</table>
-
-				 
+			 
 					 
 					 
 

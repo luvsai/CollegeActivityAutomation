@@ -94,28 +94,9 @@ nsheets = []
 
 count = 1
 #-----------------function to load the data sheet from the google sheets into memory
+
+
 memorysheets = {}
-def loadsheets() :
-    global count
-    while True:
-        print("signin.py: ++++++loading sheets started : Count : --->>>" ,count)
-        for i in range(len(sheets)):
-            actsheet = getSheetdf(sheets[i])
-            memorysheets[sheets[i]] = actsheet
-        print("signin.py: ------loading sheets completed : Count : --->>>" ,count)
-        count +=1
-        time.sleep(30)
-
-       
-
-
-t1 = threading.Thread(target=loadsheets)
-t1.start()
-
-
-
-#------
-
 
 
 
@@ -174,7 +155,7 @@ def loadStats(RegId=""):
         sdict [sheets[i]] = [href, all, u]
         print(href)
         nsheets.append( sheets[i])
-    print(sdict)
+    #print(sdict)
     sdic = sdict
     return sdict
 
@@ -193,9 +174,94 @@ def addPieData(sdict) :
 
 
 
+
+
+
+
+
+#---top students 
+topstu = []
+
+
+def loadallstu() :
+    allstudata = []
+    global topstu
+    
+    print("Computing top students")
+    objs = student.objects.all()
+    for rec in objs: 
+        sdict = loadStats(rec.S_RegId)
+        count = 0
+        for values in sdict.values():
+            count += values[2]
+        allstudata.append([rec.S_RegId, rec.S_Name, rec.S_Email,count])
+    stop = pd.DataFrame(columns=['RID','NAME','EMAIL','COUNT'], data=allstudata)
+    stop = stop.sort_values(by=['COUNT'], ascending=False)
+    tops = stop.head(n=10)
+    print(tops)
+    Row_list =[]
+  
+    # Iterate over each srow
+    rank = 1
+    for index, rows in tops.iterrows():
+        # Create list for the current row
+        my_list =[rows.RID, rows.NAME, rows.EMAIL, rows.COUNT,rank]
+        rank += 1
+        # append the list to the final list
+        Row_list.append(my_list)
+    topstu = Row_list
+    print(topstu)
+    
+
+
+
+
+
+
+
+
+def loadsheets() :
+    global count
+    while True:
+        print("signin.py: ++++++loading sheets started : Count : --->>>" ,count)
+        for i in range(len(sheets)):
+            actsheet = getSheetdf(sheets[i])
+            memorysheets[sheets[i]] = actsheet
+        print("signin.py: ------loading sheets completed : Count : --->>>" ,count)
+        loadallstu()
+        count +=1
+        time.sleep(30)
+
+
+       
+
+
+t1 = threading.Thread(target=loadsheets)
+t1.start()
+
+
+
+#------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @csrf_exempt
 def crlogin(request):
-    global user,pwd  , nsheets
+    global user,pwd  , nsheets ,topstu
     sessionid = request.session.get("sessionid","NOSessionID")
     if sessionid == "NOSessionID" :#not logged in                        
         if request.method == "POST": #do login and show the output
@@ -222,8 +288,9 @@ def crlogin(request):
                     sdict = loadStats(RegId=record.S_RegId)
                     piedat =  addPieData(sdict)
                     print(5)
+                    print(topstu)
 
-                    return render(request,'welcome.html', {'record': record ,'sheets': nsheets , 'sdic' : sdict, 'piedata' : piedat})
+                    return render(request,'welcome.html', {'record': record ,'sheets': nsheets , 'sdic' : sdict, 'piedata' : piedat,'topstu' : topstu})
                 else :
                     return render(request,'error2.html')
             except:
@@ -238,7 +305,8 @@ def crlogin(request):
         if  S_Id  != None:
             sdict = loadStats(RegId=record.S_RegId)
             piedat =  addPieData(sdict)
-            return render(request,'welcome.html', {'record': record ,'sheets': nsheets , 'sdic' : sdict, 'piedata' : piedat})
+            print(topstu)
+            return render(request,'welcome.html', {'record': record ,'sheets': nsheets , 'sdic' : sdict, 'piedata' : piedat , 'topstu' : topstu})
         else:
             del request.session['sessionid']
             return HttpResponse("Invalid session user logout")
