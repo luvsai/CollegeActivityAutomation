@@ -50,10 +50,10 @@ sheets = ['S1 Student Journal Pub',
  'S18 Students Placements']
 
 
-file_s = os.path.join(settings.BASE_DIR, 'sres4.xlsx')
+# file_s = os.path.join(settings.BASE_DIR, 'sres4.xlsx')
  
-df2 = pd.read_excel(file_s,
-                 sheets, engine='openpyxl')
+# df2 = pd.read_excel(file_s,
+#                  sheets, engine='openpyxl')
 
 sheetsExclude = [   'S7 Student Workshops Organized',
 'S8 Student Events Organized',

@@ -42,10 +42,10 @@ esheets =  ['S1 Student Journal Pub',
 					'S18 Students Placements']
 
 sdic = {}
-file_s = os.path.join(settings.BASE_DIR, 'sres4.xlsx')
-print(file_s)
-df2 = pd.read_excel(file_s,
-                 esheets, engine='openpyxl')
+# file_s = os.path.join(settings.BASE_DIR, 'sres4.xlsx')
+# print(file_s)
+# df2 = pd.read_excel(file_s,
+#                  esheets, engine='openpyxl')
  
 
 
@@ -111,29 +111,30 @@ def loadStats(RegId=""):
     for i in range(len(sheets)):
         actsheet = memorysheets[sheets[i]]
         if actsheet is  None:
-            actsheet = df2[esheets[i]]
-            u = 0
-            all = actsheet.shape[0]
-            if esheets[i] not in esheetsExclude :
-                try :
-                    actsheet = actsheet.sort_values(by=['Roll Number'], ascending=True)
-                    actsheet['Roll Number'] = actsheet['Roll Number'].map( str)
-                    actsheet['Roll Number'] = actsheet['Roll Number'].map( str.upper)
+            continue
+            # actsheet = df2[esheets[i]]
+            # u = 0
+            # all = actsheet.shape[0]
+            # if esheets[i] not in esheetsExclude :
+            #     try :
+            #         actsheet = actsheet.sort_values(by=['Roll Number'], ascending=True)
+            #         actsheet['Roll Number'] = actsheet['Roll Number'].map( str)
+            #         actsheet['Roll Number'] = actsheet['Roll Number'].map( str.upper)
                     
 
-                    options = [RegId]  
-                    user_data = actsheet[ actsheet['Roll Number'].isin(options) ] 
-                    u = user_data.shape[0]
-                except:
-                    pass
-            print(esheets[i])
-            href = esheets[i].replace(" ", "_")
-            href = href.replace(":", "-")
-            href = href.replace("/", "~")
-            sdict [esheets[i]] = [href, all, u]
+            #         options = [RegId]  
+            #         user_data = actsheet[ actsheet['Roll Number'].isin(options) ] 
+            #         u = user_data.shape[0]
+            #     except:
+            #         pass
+            # print(esheets[i])
+            # href = esheets[i].replace(" ", "_")
+            # href = href.replace(":", "-")
+            # href = href.replace("/", "~")
+            # sdict [esheets[i]] = [href, all, u]
 
-            nsheets.append(esheets[i])
-            print(href)
+            # nsheets.append(esheets[i])
+            # print(href)
             continue
         u = 0
         all = actsheet.shape[0]
