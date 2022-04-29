@@ -1,5 +1,6 @@
 import imp
 import re
+from turtle import title
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from .models import  *
@@ -8,78 +9,9 @@ from django.views.decorators.csrf import csrf_exempt
 import random
 import string
 from .signutilities import *
+from .forms import faculty_publications, Profile_Form
 
-
-
-
-
-
-
-
-@csrf_exempt
-def Cjlogin(request):
-    sessionid = request.session.get("sessionid","NOSessionID")
-    if sessionid == "NOSessionID" :#not logged in
-        temp = getsessionid()
-        request.session["sessionid"] = temp
-        sessionid = temp
-        
-    
-    return HttpResponse(sessionid)
-
-
-
-
-
-    if request.method == "POST": #do login and show the output
-        print(request.body.decode("utf-8"))
-        cred = json.loads(request.body)
-        # return HttpResponse(cred["uname"])
-        try:
-            uname = cred["uname"]
-            password = cred["password"]
-            if uname != None:
-
-                record = faculty.objects.get(F_RegId=uname)
-                if record != None:
-                    data = {}
-                    tempd = {}
-                    templist = []
-                    if password == record.cpass:
-                        tempd["status"] = "success"
-                        # generating a new session id
-                        tempd["sessionid"] = getsessionid()
-
-
-                        #put the session id and F_Id into facultyactivee
-                        #save the session id into cookies or session variables
-                        #redirect to succesfull page
-
-                    else:
-                        #wrong credentials go to login page
-
-                        tempd["status"] = "Incorrect"
-                    templist.append(tempd)
-                    data["loginproducts"] = templist
-                    return JsonResponse(tempd)
-                else:
-                    return HttpResponse("error")
-                data = {}
-                tempd = {}
-                templist = []
-                #tempd["lid"] = record.lid
-                tempd["uname"] = record.uname
-                tempd["password"] = record.password
-
-                templist.append(tempd)
-                data["loginproducts"] = templist
-                return JsonResponse(data)
-
-        except:
-
-            return HttpResponse("error")
-    #elsee show the login page
-
+from django.shortcuts import redirect
 
 user=''
 pwd=''
@@ -90,8 +22,11 @@ def crlogin(request):
     if sessionid == "NOSessionID" :#not logged in                        
         if request.method == "POST": #do login and show the output
             user = int(request.POST["F_RegId"])
+            #pwd = request.POST.get('F_Password', False)
+            #user = int(request.POST.get('F_RegId', False))
             pwd = request.POST["F_Password"] 
             print("pwd" , pwd)
+            print(user)
             try :
                 record = faculty.objects.get(F_Id = user)
             except:
@@ -103,7 +38,7 @@ def crlogin(request):
                 request.session["sessionid"] = temp
                 sessionid = temp
                 AF = activeFaculty.objects.create(F_Id= user,sessionid= sessionid)
-                return render(request,'welcome.html')
+                return render(request,'welcome.html', {'record': record})
             else :
                 return render(request,'error2.html')
         else:
@@ -111,34 +46,26 @@ def crlogin(request):
     else: #verify session id
         #is session id is valid
         F_Id = isSessionIDValid(sessionid)
+        record = faculty.objects.get(F_Id = F_Id)
         if  F_Id  != None:
-            record = faculty.objects.get(F_Id = F_Id)
-
-            return HttpResponse("Logged in as : "+str(record.F_Name))
+            return render(request, 'welcome.html', {'record':record})
         else:
             del request.session['sessionid']
             return HttpResponse("Invalid session user logout")
-
-
-
     #elsee show the login page
-
-
-
-
-    
-@csrf_exempt
-def login(request):
-    sessionid = request.session.get("sessionid","NOSessionID")
-    if sessionid == "NOSessionID" :#not logged in
-        temp = getsessionid()
-        #add session token to the database
-        request.session["sessionid"] = temp
-        sessionid = temp
-        return HttpResponse("Not logged in ")
+# @csrf_exempt
+# def login(request):
+#     sessionid = request.session.get("sessionid","NOSessionID")
+#     if sessionid == "NOSessionID" :#not logged in
+#         temp = getsessionid()
+#         #add session token to the database
+#         request.session["sessionid"] = temp
+#         sessionid = temp
+#         messages = "Session Expired"
+#         return render(request, 'home.html', {'messages':messages})
         
         
-    return HttpResponse(sessionid +" <br>logged IN yayy!!!")
+#     return HttpResponse(sessionid +" <br>logged IN yayy!!!")
 
 @csrf_exempt
 def logout(request):
@@ -151,8 +78,62 @@ def logout(request):
         except:
             pass
         del request.session['sessionid']
-        return HttpResponse("Succesfullly Logged out")
+        return render(request, 'home.html')
 
+def home1(request):
+    return render(request,'home.html')
+
+def welcome(request):
+    return render(request, 'welcome.html')
+
+def facultypublications(request):
+    form = faculty_publications()
+    if request.method == 'POST':
+        form = faculty_publications(request.POST, request.FILES)
+        sessionid = request.session.get("sessionid","NOSessionID")
+        F_Id = isSessionIDValid(sessionid)
+        if form.is_valid():
+        # id = int(request.POST["P_Id"])
+        # title = request.POST["P_Title"]
+        # p_obj = publications.objects.create(P_Id= id,P_Title= title)
+            post = form.save(commit=False)
+            iN = random.randint(0,9999999)
+            print("iN", iN)
+            fpos = post.P_Id
+            post.P_Id = iN
+            #post.published_date = timezone.now()
+            post.save()
+            f_obj = pfconnect.objects.create(P_Id= iN,F_Id = F_Id,F_Pos = fpos)
+            #form.save()
         
-    
-    return HttpResponse(sessionid)
+#         user_pr = form.save(commit=False)
+#         user_pr.display_picture = request.FILES['display_picture']
+#         file_type = user_pr.display_picture.url.split('.')[-1]
+#         file_type = file_type.lower()
+#         #if file_type not in IMAGE_FILE_TYPES:
+#             #return render(request, 'error.html')
+#         user_pr.save()
+#         return render(request, 'details.html', {'user_pr': user_pr})
+            response = redirect('/rwel')
+            return response
+            return    #HttpResponse("Form saved<a> Go to home</a>")
+        else:
+            return HttpResponse("Form is not valid")
+    context = {"form": form,}
+    return render(request, 'faculty_publications.html', context)
+
+
+def welcomeFun(request) :
+    sessionid = request.session.get("sessionid","NOSessionID")
+    F_Id = isSessionIDValid(sessionid)
+    record = faculty.objects.get(F_Id = F_Id)
+    if  F_Id  != None:
+        print(record)
+        return render(request, 'welcome.html', {'record':record})
+    else:
+        del request.session['sessionid']
+        return HttpResponse("Invalid session user logout")
+
+
+def showpublications(request) : 
+    return HttpResponse("showing publications of a user")
