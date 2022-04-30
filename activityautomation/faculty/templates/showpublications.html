@@ -1,6 +1,20 @@
+ 
+
 <!DOCTYPE html>
+
 <html>
-<head>
+<head> 
+    <link rel="icon" type="image/png" href="http://www.jeduka.com/storage/school_image/2/mvgr-college-of-engineering.png" id="favicon-svg">
+    
+    
+    <!-- <link id="ui-theme" rel="stylesheet" href="https://static-exp1.licdn.com/sc/h/cw1skx6zyv8p5jxqy4n7ctu46"> -->
+    <link id="ui-theme-dark" rel="stylesheet" href="https://static-exp1.licdn.com/sc/h/7tv17oa0lsym0ovcxwapq787o" >
+  
+<link rel="stylesheet" href="https://static-exp1.licdn.com/sc/h/akgldf9nz8xpgz93xwt4szg8">
+
+
+<link rel="stylesheet" href="https://static-exp1.licdn.com/sc/h/4lpi2yn5i3w5wy3u3nutaxja6">
+<link rel="stylesheet" href="https://static-exp1.licdn.com/sc/h/95838ilnit5o19bmxpz7b6uik">
 <style>
 table {
   font-family: arial, sans-serif;
@@ -14,14 +28,27 @@ td, th {
   padding: 8px;
 }
 
+th ,td {
+  white-space: nowrap;
+  border: 1px solid #ddd;
+  padding: 20px;
+}
+
+th{
+  background-color: #fdf3f5;
+}
+
 tr:nth-child(even) {
-  background-color: #dddddd;
+  background-color: #efefef;
  
 }
 </style>
 </head>
-<body>
 
+<body style="background-color: white;">
+
+  <div   style="padding  : 20px;">
+  
 {% block title %}{{ section.title }}{% endblock %}
 
 {% block content %}
@@ -32,35 +59,27 @@ tr:nth-child(even) {
 
     <h1>{{ section.title }}</h1>
 
+{% if flag %}
+                        <h2>showing {{ url }}</h2>  
 
-            <h2>Submitted Publications </h2>  
+            <br>
+                    <h1> {{ record.F_Name }} Data</h1>
+            <br>
+            {% autoescape off %}
+            {{ uh }}
+            {% endautoescape %}
 
+{% endif%}
+                
 
-            <table>
-                <tr>
-                  <th>Publication Name </th>
-                  <th>Faculty Name </th> 
-                </tr>
-                      {% for dat in data %}
-                      {% block table %}
-                        
-                             
-                              <tr> 
+        <br>
 
-                                {% for emp in dat %}
-                                  <td>{{emp}}</td>
-                                   
-                                {% endfor %}
-                                
-                              </tr>
-
-                      {% endblock %}
-
-                      {% endfor %}
-            </table>
-
-
+        <h1> All Faculty Publications</h1>
+        {% autoescape off %}
+        {{ uall }}
+        {% endautoescape %}
+             
 {% endblock %}
-
+</div>
 </body>  
 </html> 

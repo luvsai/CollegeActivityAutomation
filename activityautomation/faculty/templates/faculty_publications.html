@@ -8,18 +8,134 @@
           }
       </style>
   </head>
-        <center>
-            <div class="wrapper">
-                <h5 class="text-center alert alert-info"> ENTER YOUR PUBLICATION DETAILS </h5>
-                <form method="POST" enctype="multipart/form-data">
-                        <!-- Very Important csrf Token -->
-                        {% csrf_token %}
-                        <table>
-                            {{ form.as_table }}
-                        </table>
-                        <br><input type="submit" class="btn btn-primary btn-lg" name="register">
-                </form>
-            </div>
-        </center>
+  <body> 	
+
+
+    <div class="container-fluid" style="background-color: rgb(245, 245, 245);">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    
+                            <div class="col-md-2 halfleft">
+                                <div class='child2'> <h4 class="text-center alert alert-info">Profile</h4></div>
+                            <div class="feed-identity-module artdeco-card overflow-hidden mb2"style="padding  : 20px;">
+                                <!---->
+                                <div class="feed-identity-module__actor-meta break-words">
+                                    <div class="feed-identity-module__member-bg-image
+                                        " style="background-image:url(https://media-exp1.licdn.com/dms/image/C5616AQGQDgpnuOiN5w/profile-displaybackgroundimage-shrink_200_800/0/1622056308909?e=2147483647&amp;v=beta&amp;t=hJSJaq-gp5BoSUoI_5yXtHF2UzKj5I1dYh1cil49Wxg)">
+                                <!---->    </div>
+                                
+                                    <a href="/in/luvsai/" id="ember127" class="ember-view block">
+                                    <div>
+                                        <div class="animation">
+                                            <div class="round round-circle">
+                                        
+                                        </div></div> 
+                                        <img width="64" src="https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png" loading="lazy" height="64"  id="ember128" class="feed-identity-module__member-photo EntityPhoto-circle-5 lazy-image ember-view">
+                                    
+                                    
+                                    </div>
+                                    <div class="t-16 t-black t-bold">
+                                        {{ record.F_Name }}
+                                    </div>
+                                    </a>
+                                
+                                    <p class="identity-headline t-12 t-black--light t-normal mt1">
+                                        {{ record.F_Dept }} , Maharaj Vijayaram Gajapathi Raj College of Engineering
+                                    </p>
+                                    
+                                    <br>
+                                    Faculty ID :  {{record.F_RegId}}
+                                
+                                <br>
+                                    <p class="identity-headline t-12 t-black--light t-normal mt1">
+                                        Designation : 
+                                    </p>
+                                    <br> 
+                                    
+                                
+                                
+                                    
+                                
+                                <!---->
+                                </div>
+                                    </div>
+                                
+                                    
+                            <div class="feed-identity-module artdeco-card overflow-hidden mb2"style="padding  : 20px;">
+                                <!---->
+                                <div class="feed-identity-module__actor-meta break-words">
+                                    <div class="feed-identity-module__member-bg-image
+                                        " style="background-image:url(https://images.unsplash.com/photo-1553095066-5014bc7b7f2d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8d2FsbCUyMGJhY2tncm91bmR8ZW58MHx8MHx8&w=1000&q=80)">
+                                <!---->    </div>
+                                
+                                <div class="t-16 t-black t-bold">
+                                    Acheivements & Highlights 
+                                </div>
+                                
+                                    <p class="identity-headline t-12 t-black--light t-normal mt1">
+                                        
+                                    </p>
+                                    
+                                    <br>
+                                
+                                
+                                    <p class="identity-headline t-12 t-black--light t-normal mt1">
+                                    
+                                    </p>
+                                    <br>  
+                                
+                                
+                                    
+                                
+                                <!---->
+                                </div>
+                            </div>
+                                
+                                </div>
+                            
+                            
+                                <div class="col-md-5 halfcenter" style="padding-top: 0px;">
+                                <center>
+                                    <div class="wrapper" style="background-color:white;">
+                                        <h5 class="text-center alert alert-info"> ENTER YOUR PUBLICATION DETAILS </h5>
+                                        <form method="POST" enctype="multipart/form-data">
+                                                <!-- Very Important csrf Token -->
+                                                {% csrf_token %}
+                                                <table >
+                                                    {{ form.as_table }}
+                                                </table>
+                                                <br>
+                                                <br><input type="submit" class="btn btn-primary btn-lg" name="register" >
+                                        </form>
+                                    </div>
+                                </center>
+                                </div>
+                                
+                                <div class="col-md-4 halfright" style="padding-top: 200px;background-color: rgb(203, 203, 203);" >
+                                    <div class="feed-identity-module artdeco-card overflow-hidden mb2"style="padding  : 20px;">
+                                        <!---->
+                                        <div class="feed-identity-module__actor-meta break-words">
+                                    <div class=" " >
+                                        <h5 class="text-center alert alert-info"> Add Data to Existing Publication </h5>
+                                        <div class="form-outline">
+                                           
+
+                                                <form action="/addpub2form" method="post">
+                                                {% csrf_token %}
+                                                {{ form2 }}
+                                                <br><input type="submit" class="btn btn-primary btn-lg" name="register" >
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                    </div>
+                                    </div>
+                                    
+                </div>
+            </div></div></div>
+
    {% endblock %}
+
+   </body>
    

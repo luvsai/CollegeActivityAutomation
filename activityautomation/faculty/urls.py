@@ -28,7 +28,16 @@ urlpatterns = [
     path('showpublications', signin.showpublications,name='showpublications'),
 
 
-    path('rwel', signin.welcomeFun,name='rwel')
+    path('rwel', signin.welcomeFun,name='rwel'),
+    path('shospub', signin.shospub,name='shospub'),
+
+    path('addpub2form', signin.addpub2form,name='addpub2form')
+
+    
+
+
+    
+    
 ]
 
 

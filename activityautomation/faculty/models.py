@@ -16,7 +16,7 @@ class dummy(models.Model):
     class Meta:
         db_table = "dummmy"
 
-FPos_cho = (
+FPos_cho = [
    (1, '1'),
    (2, '2'),
    (3, '3'),
@@ -27,7 +27,7 @@ FPos_cho = (
    (8, '8'),
    (9, '9'),
    (10, '10'),
-)
+]
 I_Factor_CHOICES = (
    ('Yes', 'Yes'),
    ('No', 'No')

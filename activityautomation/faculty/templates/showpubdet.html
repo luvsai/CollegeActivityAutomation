@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 {% load  static %}  
 <html>
@@ -37,7 +39,7 @@
   position: relative;
   display: block;
   width: 550px;
-  height: 70px;
+  height: 90px;
   overflow: hidden;
   border-bottom: 3px solid #fff;
   color: #fff;
@@ -73,7 +75,7 @@
     250px 0 0 50px #4DB6AC,
     290px 0 0 50px #4DB6AC,
     620px 0 0 50px #4DB6AC;
-  animation: hill 4s 2s linear infinite;
+  animation: hill 7s 2s linear infinite;
 }
 .tree, .tree:nth-child(2), .tree:nth-child(3) {
   position: absolute;
@@ -119,7 +121,7 @@
   margin-bottom: 0;
 }
 
-.tree  { animation: tree 3s 0.000s linear infinite; }
+.tree  { animation: tree 5s 0.000s linear infinite; }
 .tree:nth-child(2)  { animation: tree2 2s 0.150s linear infinite; }
 .tree:nth-child(3)  { animation: tree3 8s 0.050s linear infinite; }
 .rock  { animation: rock 4s   -0.530s linear infinite; }
@@ -401,10 +403,10 @@
 
 		<ul class="navbar-nav">
 			<li class="nav-item">
-				<a style="color: white;" class="nav-link" href="/crlogin">{{ record.S_Name }}</a>
+				<a style="color: white;" class="nav-link" href="/home1">{{ record.F_Name }}</a>
 			</li>
 			<li class="nav-item">
-				<a style="color: white;" class="nav-link" href="/crlogin"><span class="iconify-inline" data-icon="ant-design:home-outlined"></span>Home</a>
+				<a style="color: white;" class="nav-link" href="/home1"><span class="iconify-inline" data-icon="ant-design:home-outlined"></span>Home</a>
 			</li>
 			<li class="nav-item">
 				<a style="color: white;" class="nav-link" href="#"><span class="iconify-inline" data-icon="carbon:content-delivery-network"></span>
@@ -417,9 +419,8 @@
 				</a>
 			</li>
 		</ul>
-		<div class='child2'> <h4 class="text-center alert alert-info">Student Page</h4></div>
+		<div class='child2'> <h4 class="text-center alert alert-info">Faculty Page</h4></div>
 	</nav>
-
     <div class="container-fluid" style="background-color: rgb(245, 245, 245);">
 	<div class="row">
 		<div class="col-md-12">
@@ -450,22 +451,23 @@
 		
 		</div>
 		  <div class="t-16 t-black t-bold">
-			{{ record.S_Name }}
+			{{ record.F_Name }}
 		  </div>
 		</a>
 	
 		  <p class="identity-headline t-12 t-black--light t-normal mt1">
-			CS Student | Android Developer | Data Science
+			{{ record.F_Dept }} , Maharaj Vijayaram Gajapathi Raj College of Engineering
 		  </p>
 		
 		  <br>
+		 Faculty ID :  {{record.F_RegId}}
 	 
-	 
+	 <br>
 		  <p class="identity-headline t-12 t-black--light t-normal mt1">
-			Reg Id : {{ record.S_RegId }}
+			Designation : 
 		  </p>
 		 <br> 
-		  <h5>Section : {{ record.S_Sec}}</h5>
+		 
 	 
 	
 		  
@@ -512,11 +514,12 @@
 
 				<div class="col-md-5 halfcenter"  >
 					{{ piedata|json_script:"piedata" }}
+					{{ dodata|json_script:"dodata" }}
 					  <!-- connections -->
 					 
-						<div class='child2'>	 
+						<div class='child2' >	 
 							<div class="feed-identity-module artdeco-card overflow-hidden mb2 " >
-								<div class='child2'> <h4 class="text-center alert alert-info">Performance</h4></div>
+								<div class='child2'> <h4 class="text-center alert alert-info">Publication Information</h4></div>
 								<div style="background-color: rgb(30, 30, 30);">
 								<div class="loop-wrapper">
 									<div class="mountain"></div>
@@ -524,9 +527,7 @@
 									<div class="tree"></div>
 									<div class="tree"></div>
 									<div class="tree"></div>
-									<div class="rock"></div>
-									<div class="truck"></div>
-									<div class="wheels"></div>
+									<div class="rock"></div> 
 								</div> 
 						</div>
 						  </div> 
@@ -536,77 +537,86 @@
 					  </div>
 
 
-					  <!-- pie chart -->
-					  <div style="height: 70px;"></div>
-					 <center> <div class="feed-identity-module artdeco-card overflow-hidden mb2"style="padding  : 5px;"> 
-					
-						<div id="piechart" ></div> 
-						<div class='child1'> <h4 class="text-center alert alert-info">Overall Records</h4></div>
-					</div></center>
-
-					  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-					  
-					  <script type="text/javascript">
-					  // Load google charts
-					  google.charts.load('current', {'packages':['corechart']});
-					  google.charts.setOnLoadCallback(drawChart);
-					  
-					  // Draw the chart and set the chart values
-					  function drawChart() {
-						  const piedata = JSON.parse(document.getElementById('piedata').textContent);
 					 
-						
-						var data = google.visualization.arrayToDataTable(piedata);
-						  
-				 
-						// Optional; add a title and set the width and height of the chart
-						var options = {'title':'', 'width':550, 'height':400};
-					  
-						// Display the chart inside the <div> element with id="piechart"
-						var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-						chart.draw(data, options);
-					  }
-					  </script>
-
 
 
 
   <!-- top studentss -->
   <div style="height: 70px;"></div>
-  <center> <div class="feed-identity-module artdeco-card  mb2"style="padding  : 5px;"> 
+    <div class="feed-identity-module artdeco-card  mb2"style="padding  : 5px;"> 
  
 	  <div style="height: 50px;"></div>
 
-	{% for val in topstu %}
+	 
 
 	<div class="feed-identity-module artdeco-card  mb2"style="padding  : 5px;"> 
 
-		 	
-			 
-				 
-				<div>
-					<div class="t-14 t-black t-bold"> 	 {{ val.1 }}</div>
-					<h4 style="color: rgb(45, 102, 209);">{{ val.0 }}</h4> 
-					<h4 style="color: rgb(79, 79, 79);">{{ val.2 }}</h4> 
-				</div>		
-		 
-				<div class='child2'> <h4 class="text-center alert alert-info">	 {{ val.3 }}</h4></div>
-	 
+        		 
+        <p class="identity-headline t-16 t-black--light t-normal mt1" style="padding-left: 30px;">
+            <b>Joural  Name </b>: {{precord.P_Joural_Name}}
+        </p>
+        <p class="identity-headline t-16 t-black--light t-normal mt1" style="padding-left: 30px;">
+            <b>Indexing </b>: {{precord.P_Indexing}}
+        </p>
+        <p class="identity-headline t-16 t-black--light t-normal mt1" style="padding-left: 30px;">
+            <b>Is Impact Factor Available </b>: {{precord.P_IF_State}}
+        </p>
+        <p class="identity-headline t-16 t-black--light t-normal mt1" style="padding-left: 30px;">
+            <b>Impact Factor Value </b>: {{precord.P_IF_Value}}
+        </p>
+        <p class="identity-headline t-16 t-black--light t-normal mt1" style="padding-left: 30px;">
+            <b>Impact Factor Source </b>: {{precord.P_IF_Source}}
+        </p>
+        <p class="identity-headline t-16 t-black--light t-normal mt1" style="padding-left: 30px;">
+            <b>Date of Publication </b>: {{dat}}
+        </p>
+        <p class="identity-headline t-16 t-black--light t-normal mt1" style="padding-left: 30px;">
+            <b>DOI </b>: {{precord.P_DOI}}
+        </p>
+        <p class="identity-headline t-16 t-black--light t-normal mt1" style="padding-left: 30px;">
+            <b>Page Nos </b>: {{precord.P_Page_Nos}}
+        </p> 
+        <p class="identity-headline t-16 t-black--light t-normal mt1" style="padding-left: 30px;">
+            <b>ISSN  </b>: {{precord.P_ISSN}}
+        </p>
+         
+        <p class="identity-headline t-16 t-black--light t-normal mt1" style="padding-left: 30px;">
+            <b>Volume  </b>: {{precord.P_Volume}}
+        </p>
+        <p class="identity-headline t-16 t-black--light t-normal mt1" style="padding-left: 30px;">
+            <b>Issue  </b>: {{precord.P_Issue}}
+        </p>
+        <p class="identity-headline t-16 t-black--light t-normal mt1" style="padding-left: 30px;">
+            <b>Journal Source  </b>:  {% autoescape off %}
+            {{ jso }}
+            {% endautoescape %}
+        </p>
+        <p class="identity-headline t-16 t-black--light t-normal mt1" style="padding-left: 30px;">
+            <b>Paper Source  </b>:  {% autoescape off %}
+            {{ sou}}
+            {% endautoescape %}
+        </p>
+        
+         
  
-				<div class='child1'> <h4 class="text-center alert alert-danger">#{{val.4}}</h4></div>
+				<!-- <div class='child2'> <h4 class="text-center alert alert-danger">#1: Publications</h4></div> -->
 
  
 	</div>
 	  
-	{% endfor %}
+	 
 	 
 
 
 
 
 
-	 <div class='child1'> <h4 class="text-center alert alert-info">Top Performers</h4></div>
- </div></center>
+	 <div class='child1'> <h4 class="text-center alert alert-info"><b>Title : </b>{{precord.P_Title}}</h4></div>
+
+     
+ </div>
+
+ 
 
 
 
@@ -617,51 +627,35 @@
 
 				<!-- end topstu -->
 
-				   <!-- right frame -->
-				<div class="col-md-4 halfright">
-					<div class='child2'> <h4 class="text-center alert alert-info">Activities</h4></div>
-					<div class="form-outline">
-						<input type="search" id="form1" class="form-control" placeholder="Type query" aria-label="Search" />
-					</div>
+               
+				<div class="col-md-4 halfright" style="background-color: white;">
+					<div class='child2'> <h4 class="text-center alert alert-info">Authors</h4></div>
+				 
 					<br>
 				 
-			 
-				 
-			
-						{% for key, value in sdic.items %}
-						
-						<h3>
-					
-							<div class="feed-identity-module artdeco-card  "style="padding  : 20px;">	
-								<div class="feed-identity-module__actor-meta break-words">
-								 	
-									<div>
-										<div class="t-14 t-black t-bold"> 	 <a  href="{% url value.0  value.0 %}">{{ key }}</a></div>
-										<h4 style="color: rgb(45, 102, 209);">Total : {{ value.1 }}</h4> 
-									</div>		
-							 
-									<div class='child2'> <h4 class="text-center alert alert-info">	 {{ value.2 }}</h4></div>
+			      
+                       
+               <h4>
+					<div class="tasks" >
+                        {% for fac in facs %}
+						<div class="feed-identity-module artdeco-card  mb2"style="padding  : 5px;padding-top:20px;"> 
+						<h3 class="activity" >{{ fac.0  }}</h3> 
+                        <p class="identity-headline t-14 t-black--light t-normal mt1" style="padding-left: 30px;">
+                                {{fac.2}}
+                            </p>
 						 
-					 
-							</div>
-
+						<div class="child2">
+							 <a class="text-center alert alert-info" href="/faculty_publications" style="top: 7px;right:20px">#{{fac.1}}</a>
 						</div>
-					 
-
-
-
-						</h3>
-				
-
-						 
-						{% endfor %}
-					
-					 
-			 
-					 
-					  
-					 
-			  </div>
+						<div class="child2">
+							<a class="text-center alert alert-danger" href="" style="top: 7px;right:100px">ViewDetails</a>
+					   </div>
+               
+                    </div>
+			
+                {% endfor %} 
+			</h4>
+        
 			</div>
 		</div>
 	</div>

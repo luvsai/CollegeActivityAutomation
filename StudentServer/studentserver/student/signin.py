@@ -225,7 +225,7 @@ def loadallstu() :
 
 def loadsheets() :
     global count
-    while True:
+    while True: 
         print("signin.py: ++++++loading sheets started : Count : --->>>" ,count)
         for i in range(len(sheets)):
             actsheet = getSheetdf(sheets[i])
@@ -269,8 +269,6 @@ def crlogin(request):
     if sessionid == "NOSessionID" :#not logged in                        
         if request.method == "POST": #do login and show the output
             user = str(request.POST["S_RegId"])
-            #pwd = request.POST.get('F_Password', False)
-            #user = int(request.POST.get('F_RegId', False))
             pwd = request.POST["S_Password"] 
             print("pwd" , pwd)
             print(user)
@@ -345,6 +343,7 @@ def home1(request):
     return render(request,'home.html')
 
 def welcome(request):
+
     return render(request, 'welcome.html')
 
 def welcomeFun(request) :
