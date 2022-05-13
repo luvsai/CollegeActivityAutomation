@@ -319,7 +319,9 @@
 			box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 			
 
-		}
+		}.litem {
+      display: "";
+    }
 			 
 				.child1 {
 				display: inline-block;  	
@@ -444,9 +446,9 @@
 		  <div>
 			<div class="animation">
 				<div class="round round-circle">
-			
+          <img width="64" src="https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png" loading="lazy" height="64"  id="ember128" class="feed-identity-module__member-photo EntityPhoto-circle-5 lazy-image ember-view">
+		
 			</div></div> 
-			<img width="64" src="https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png" loading="lazy" height="64"  id="ember128" class="feed-identity-module__member-photo EntityPhoto-circle-5 lazy-image ember-view">
 		
 		
 		</div>
@@ -606,17 +608,20 @@
 				   <!-- right frame -->
 				<div class="col-md-4 halfright" style="background-color: white;">
 					<div class='child2'> <h4 class="text-center alert alert-info">Activities</h4></div>
-					<div class="form-outline">
-						<input type="search" id="form1" class="form-control" placeholder="Type query" aria-label="Search" />
+          <div class="form-outline">
+						<input type="search" id="form1" class="form-control" placeholder="Search Activity" aria-label="Search" onkeyup="search()">
 					</div>
 					<br>
 				 
 			 <h4>
-					<div class="tasks" >
-						<div class="feed-identity-module artdeco-card  mb2"style="padding  : 5px;"> 
-						<h3 class="activity" >Publications</h3> 
-						<div style="display: inline-block;"><h3 style="padding-left: 10px">  Total : {{publis.0}}</h3> 
-							<h3 class="child2" style="padding-left: 10px ;top: 60px;right:80px">  Yours: {{publis.1}}</h3> 
+         <!-- Activiy list  -->
+					<div class="tasks" id="tasks">
+
+            <div class="litem">
+						<div class="feed-identity-module artdeco-card  mb4"style="padding  : 5px;"> 
+						<h3 class="activity" ><p>Publications</p></h3> 
+						<div style="display: inline ;">
+              <h3 style="padding-left: 10px">  Total : {{publis.0}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp; Yours: {{publis.1}}</h3> 
 						</div>
 						<div class="child2">
 							 <a class="text-center alert alert-info" href="/faculty_publications" style="top: 7px;right:20px">Add</a>
@@ -625,26 +630,133 @@
 							<a class="text-center alert alert-danger" href="/showpublications" style="top: 7px;right:100px">View</a>
 					   </div>
 					
-					</div>
-						<a class="activity" href="#">PHD Admissions</a>
-						<a class="activity"  href="#">Awards and Acheivements</a>
-						<a class="activity" href="#">IP Rights and Innovation</a>
-						<a class="activity" href="#">Books</a>
-						<a class="activity" href="#">Book Chapter</a>
-						<a class="activity" href="#">Int.Conf</a>
-						<a class="activity" href="#">Citation Counts</a>
-						<a class="activity" href="#">H-Index</a>
-						<a class="activity" href="#">Seminars/Conferences attented</a>
-						<a class="activity" href="#">Paper Presented in Conf</a>
-						<a class="activity" href="#">Resource Person</a>
-						<a class="activity" href="#">Consultancy</a>
-						<a class="activity" href="#">Paper Presented in Conf</a>
-						<a class="activity" href="#">Corporate Training</a>
-						<a class="activity" href="#">Internships</a>
-						<a class="activity" href="#">Awards for Innovation</a>
-						<a class="activity" href="#">MOU</a>
+					  </div> 
+            </div>
+            <!--  -->
+            <div class="litem">
+            <div class="feed-identity-module artdeco-card  mb4"style="padding  : 5px;"> 
+              <h3 class="activity" style="background-color: #d9ddff;  "><p>Conferences</p></h3> 
+              <div style="display: inline ;">
+                <h3 style="padding-left: 10px">  Total : {{0}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp; Yours: {{ 0}}</h3> 
+              </div>
+              <div class="child2">
+                 <a class="text-center alert alert-info" href="" style="top: 7px;right:20px">Add</a>
+              </div>
+              <div class="child2">
+                <a class="text-center alert alert-danger" href="" style="top: 7px;right:100px">View</a>
+               </div>
+            
+              </div> 
+              </div>
+                  <!--  -->
+                  <div class="litem">
+            <div class="feed-identity-module artdeco-card  mb4"style="padding  : 5px;"> 
+              <h3 class="activity" ><p>Awards and Acheivements</p></h3> 
+              <div style="display: inline ;">
+                <h3 style="padding-left: 10px">  Total : {{0}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp; Yours: {{0}}</h3> 
+              </div>
+              <div class="child2">
+                 <a class="text-center alert alert-info" href="" style="top: 7px;right:20px">Add</a>
+              </div>
+              <div class="child2">
+                <a class="text-center alert alert-danger" href="" style="top: 7px;right:100px">View</a>
+               </div>
+            
+              </div> 
+              </div>
+                  <!--  -->
+                  <div class="litem">
+                    <div class="feed-identity-module artdeco-card  mb4"style="padding  : 5px;"> 
+                        <h3 class="activity" style="background-color: #d9ddff;"><p>PHD Admissions</p></h3> 
+                        <div style="display: inline ;">
+                          <h3 style="padding-left: 10px">  Total : {{0}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp; Yours: {{0}}</h3> 
+                        </div>
+                        <div class="child2">
+                          <a class="text-center alert alert-info" href="" style="top: 7px;right:20px">Add</a>
+                        </div>
+                        <div class="child2">
+                          <a class="text-center alert alert-danger" href="" style="top: 7px;right:100px">View</a>
+                        </div>
+                    
+                      </div> 
+                </div>
+					 
+
+                  <!--  -->
+                  <div class="litem">
+                    <div class="feed-identity-module artdeco-card  mb4"style="padding  : 5px;"> 
+                      <h3 class="activity" ><p>Corporate Training</p></h3> 
+                      <div style="display: inline ;">
+                        <h3 style="padding-left: 10px">  Total : {{0}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp; Yours: {{0}}</h3> 
+                      </div>
+                      <div class="child2">
+                         <a class="text-center alert alert-info" href="" style="top: 7px;right:20px">Add</a>
+                      </div>
+                      <div class="child2">
+                        <a class="text-center alert alert-danger" href="" style="top: 7px;right:100px">View</a>
+                       </div>
+                    
+                      </div> 
+                      </div>
+                          <!--  -->
+                          <div class="litem">
+                            <div class="feed-identity-module artdeco-card  mb4"style="padding  : 5px;"> 
+                                <h3 class="activity" style="background-color: #d9ddff;"><p>Research Project</p></h3> 
+                                <div style="display: inline ;">
+                                  <h3 style="padding-left: 10px">  Total : {{0}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp; Yours: {{0}}</h3> 
+                                </div>
+                                <div class="child2">
+                                  <a class="text-center alert alert-info" href="" style="top: 7px;right:20px">Add</a>
+                                </div>
+                                <div class="child2">
+                                  <a class="text-center alert alert-danger" href="" style="top: 7px;right:100px">View</a>
+                                </div>
+                            
+                              </div> 
+                        </div>
+            <!-- <a class="activity" href="#"><p>Teaching-learning Tools</p></a>
+						<a class="activity" href="#"><p>Awards</p></a>
+						<a class="activity" href="#"><p>Fellowships</p></a> 
+						<a class="activity" href="#"><p>IP Rights and Innovation</p></a>
+						<a class="activity" href="#"><p>Books</p></a>
+						<a class="activity" href="#"><p>Book Chapter</p></a>
+						<a class="activity" href="#"><p>Int.Conf</p></a>
+						<a class="activity" href="#"><p>Citation Counts</p></a>
+						<a class="activity" href="#"><p>H-Index</p></a>
+						<a class="activity" href="#"><p>Seminars/Conferences attented</p></a>
+						<a class="activity" href="#"><p>Paper Presented in Conf</p></a>
+						<a class="activity" href="#"><p>Resource Person</p></a>
+						<a class="activity" href="#"><p>Consultancy</p></a>
+						<a class="activity" href="#"><p>Paper Presented in Conf</p></a> 
+						<a class="activity" href="#"><p>Internships</p></a>
+						<a class="activity" href="#"><p>Awards for Innovation</p></a>
+						<a class="activity" href="#"><p>MOU</p></a> -->
 					</div>
 				</h4>	 
+
+
+        <script>
+          const search = () => {
+          const searchbox = document.getElementById("form1").value.toUpperCase();
+          const storeitems = document.getElementById("tasks");
+          const product = document.querySelectorAll(".litem");
+          const pname = storeitems.getElementsByTagName("p");
+
+          for (var i = 0; i < pname.length; i++){
+            let match = product[i].getElementsByTagName('p')[0];
+
+            if(match) {
+              let textvalue = match.textContent || match.innerHTML
+
+              if(textvalue.toUpperCase().indexOf(searchbox) > -1){
+                product[i].style.display = "";
+              } else {
+                product[i].style.display = "none";
+              }
+            }
+          }
+        }
+        </script>
 			  </div>
 			</div>
 		</div>

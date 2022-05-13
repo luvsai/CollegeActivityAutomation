@@ -121,7 +121,7 @@ def welcome(request):
     return render(request, 'welcome.html')
 
 
-
+@csrf_exempt
 def addpub2form(request) :
     global facpubdict  
     form = faculty_publications()
@@ -167,7 +167,7 @@ def addpub2form(request) :
         context = {"form": form, "record" :record ,'form2' : form2}
         return render(request, 'faculty_publications.html', context)
 
-
+@csrf_exempt
 def facultypublications(request):
     global facpubdict  
     form = faculty_publications()
